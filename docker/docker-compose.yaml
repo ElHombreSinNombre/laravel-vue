@@ -1,16 +1,20 @@
 version: "3.9"
 services:
   mysql:
-    image: mysql:8.0.27
+    image: mariadb:10.6.4-focal
     container_name: laravel_vue_mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
     volumes:
         -  mysql_data:/var/lib/mysql
     environment:
-        MYSQL_PASSWORD: 
-        MYSQL_DATABASE: laravelvue
-        MYSQL_USER: root
+        MARIADB_DATABASE: laravelvue
+        MARIADB_PASSWORD: 
+        MARIADB_USER: root
+        MARIADB_ROOT_PASSWORD: root
   apache:
     image: httpd:alpine3.14
+    restart: always
     container_name: laravel_vue_apache
     volumes:
         -  ../laravelVue:/var/www/html
