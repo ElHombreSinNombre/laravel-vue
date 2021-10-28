@@ -1,7 +1,7 @@
 @extends('layouts.base')
 
 <section class="flex justify-center items-center w-full bg-blue-400">
-    <div class="w-1/2 bg-white rounded shadow-2xl p-8 m-4">
+    <div class="w-1/2 bg-white rounded shadow-2xl p-8 m-6">
         <h1 class="block w-full text-center text-gray-800 text-2xl font-bold mb-6">Component Form</h1>
         <form action="/" method="post">
             <div class="flex flex-col mb-4">
@@ -45,7 +45,7 @@
                     <option>Mojokerto</option>
                 </select>
             </div>
-            <button class="block bg-green-400 hover:bg-green-600 text-white uppercase text-lg mx-auto p-4 rounded" type="submit">Save</button>
+            <button class="block bg-green-400 hover:bg-green-600 text-white uppercase text-lg mx-auto p-6 rounded" type="submit">Save</button>
         </form>
     </div>
 </section>
