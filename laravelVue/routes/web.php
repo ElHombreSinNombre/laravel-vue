@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\PersonController;
-
+use App\Http\Controllers\CarDeletedMailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,10 +19,17 @@ use App\Http\Controllers\PersonController;
 
 Route::get('/', function () {
     return view('choose');
-});
+})->name('choose');
 
 Auth::routes();
 
-Route::resource('coches', CarController::class);
+Route::resource('cars', CarController::class);
 
-Route::resource('personas',PersonController::class);
+Route::resource('people', PersonController::class);
+
+//Route::resource('cars', CarController::class)->middleware('auth');
+
+//Route::resource('people',PersonController::class)->middleware('auth');
+
+Route::get('/send', [CarDeletedMailController::class, 'email'])->name('email');
+

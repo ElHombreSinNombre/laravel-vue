@@ -20,9 +20,9 @@ class CarFactory extends Factory
     {
         return [
             'model' => $this->faker->name(12),
-            'marc' => $this->faker->lastName(12),
-            'color' => '#'.$this->faker->bothify('#######'),
-            'enrollment' => $this->faker->bothify('#######'),
+            'brand' => $this->faker->lastName(12),
+            'color' => $this->faker->hexColor(),
+            'license' => $this->faker->unique()->bothify('#######'),
         ];
     }
 }

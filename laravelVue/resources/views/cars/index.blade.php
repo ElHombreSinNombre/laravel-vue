@@ -16,22 +16,29 @@
                     <thead>
                         <tr>
                             <th
-                                class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-green-800 text-green-300">
+                                class="text-white px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-green-800 ">
                                 Model</th>
                             <th
-                                class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-green-800 text-green-300">
-                                Mar</th>
+                                class="text-white px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-green-800">
+                                Brand</th>
                             <th
-                                class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-green-800 text-green-300">
+                                class="text-white px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-green-800">
                                 Color</th>
                             <th
-                                class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-green-800 text-green-300">
-                                enrollment</th>
+                                class="text-white px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-green-800 ">
+                                License</th>
+                                <th
+                                class="text-white px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-green-800 ">
+                                Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                          <td></td>
+                            <td class="text-white px-6 align-middle">Test</td>
+                            <td class="text-white px-6 align-middle">Test</td>
+                            <td class="text-white px-6 align-middle">Test</td>
+                            <td class="text-white px-6 align-middle">Test</td>
+                            <td class="text-white px-6 align-middle"><i class="cursor-pointer hover:text-blue-200 transition duration-500 ease-in-out fas fa-edit"></i> | <i class="hover:text-red-200 transition duration-500 ease-in-out cursor-pointer fas fa-trash"></i></td>
                         </tr>
                     </tbody>
                 </table>

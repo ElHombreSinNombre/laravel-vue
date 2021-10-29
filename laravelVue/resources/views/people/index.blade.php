@@ -16,25 +16,37 @@
                     <thead>
                         <tr>
                             <th
-                                class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-blue-300">
+                                class="text-white px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800">
                                 Name</th>
                             <th
-                                class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-blue-300">
+                                class="text-white px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800">
                                 Lastname</th>
                             <th
-                                class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-blue-300">
+                                class="text-white px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800">
                                 Age</th>
                             <th
-                                class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-blue-300">
+                                class="text-white px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800">
                                 DNI</th>
                             <th
-                                class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-blue-300">
+                                class="text-white px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800">
+                                Email</th>
+                            <th
+                                class="text-white px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800">
                                 Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td></td>
+                            <td class="text-white px-6 align-middle">Test</td>
+                            <td class="text-white px-6 align-middle">Test</td>
+                            <td class="text-white px-6 align-middle">Test</td>
+                            <td class="text-white px-6 align-middle">Test</td>
+                            <td class="text-white px-6 align-middle">Test</td>
+                            <td class="text-white px-6 align-middle"><i
+                                    class="cursor-pointer hover:text-blue-200 transition duration-500 ease-in-out fas fa-edit"></i>
+                                | <i
+                                    class="hover:text-red-200 transition duration-500 ease-in-out cursor-pointer fas fa-trash"></i>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

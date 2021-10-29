@@ -10,7 +10,7 @@
         "production": "mix --production"
     },
     "devDependencies": {
-        "autoprefixer": "^10.3.7",
+        "autoprefixer": "^10.4.0",
         "axios": "^0.21",
         "bootstrap": "^4.6.0",
         "jquery": "^3.6",
@@ -25,5 +25,11 @@
         "vue": "^2.6.12",
         "vue-loader": "^15.9.8",
         "vue-template-compiler": "^2.6.12"
+    },
+    "dependencies": {
+        "@fortawesome/fontawesome-free": "^5.15.4",
+        "postcss-import": "^14.0.2",
+        "postcss-pxtorem": "^6.0.0",
+        "precss": "^4.0.0"
     }
 }

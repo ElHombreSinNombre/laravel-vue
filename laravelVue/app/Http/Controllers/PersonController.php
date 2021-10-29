@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Person;
 use Illuminate\Http\Request;
+use App\Http\Requests\PersonRequest;
 
 class PersonController extends Controller
 {
@@ -12,11 +13,12 @@ class PersonController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-
         $people = Person::all();
-
+        if ($request->ajax()){
+            return response()->json($people);
+        }
         return view('people.index')->withPeople($people);
     }
 
@@ -36,10 +38,12 @@ class PersonController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PersonRequest $request)
     {
         Person::create($request->all());
-    
+        if ($request->ajax()){
+            return response()->json('Person created');
+        }
         return view('people.index');
     }
 
@@ -49,10 +53,12 @@ class PersonController extends Controller
      * @param  \App\Models\Person  $person
      * @return \Illuminate\Http\Response
      */
-    public function show(Person $person)
+    public function show(Request $request, Person $person)
     {
         $person = Person::findOrFail($person);
-
+        if ($request->ajax()){
+            return response()->json($person);
+        }
         return view('people.form')->withPerson($person);
     }
 
@@ -62,10 +68,12 @@ class PersonController extends Controller
      * @param  \App\Models\Person  $person
      * @return \Illuminate\Http\Response
      */
-    public function edit(Person $person)
+    public function edit(Request $request,Person $person)
     {
         $person = Person::findOrFail($person);
-
+        if ($request->ajax()){
+            return response()->json($person);
+        }
         return view('people.form')->withPerson($person);
     }
 
@@ -76,10 +84,12 @@ class PersonController extends Controller
      * @param  \App\Models\Person  $person
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Person $person)
+    public function update(PersonRequest $request, Person $person)
     {
         Person::findOrFail($person)->update($request->all());
-    
+        if ($request->ajax()){
+            return response()->json('Car updated');
+        }
         return view('people.index');
     }
 
@@ -89,8 +99,11 @@ class PersonController extends Controller
      * @param  \App\Models\Person  $person
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Person $person)
+    public function destroy(Request $request, Person $person)
     {
         Person::findOrFail($person)->delete();
+        if ($request->ajax()){
+            return response()->json('Person deleted');
+        }
     }
 }

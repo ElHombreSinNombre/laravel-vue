@@ -21,8 +21,9 @@ class PersonFactory extends Factory
         return [
             'name' => $this->faker->name(12),
             'lastname' => $this->faker->lastName(12),
-            'age' => $this->faker->numerify('##'),
-            'dni' => $this->faker->bothify('#######'),
+            'age' => $this->faker->numberBetween(0, 100),
+            'email' => $this->faker->unique()->safeEmail(),
+            'dni' => $this->faker->unique()->bothify('#######')
         ];
     }
 }

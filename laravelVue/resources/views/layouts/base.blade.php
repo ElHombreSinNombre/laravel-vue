@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,13 +8,12 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
     <script src="{{ asset('js/app.js') }}" defer></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
+
 <body>
     <div id="app">
-        <main class="grid-cols-12">
-            @yield('content')
-        </main>
+        @yield('content')
     </div>
 </body>
+
 </html>

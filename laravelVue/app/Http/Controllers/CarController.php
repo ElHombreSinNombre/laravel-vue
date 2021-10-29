@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Car;
 use Illuminate\Http\Request;
+use App\Http\Requests\CarRequest;
 
 class CarController extends Controller
 {
@@ -12,10 +13,12 @@ class CarController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $cars = Car::all();
-
+        if ($request->ajax()){
+            return response()->json($cars);
+        }
         return view('cars.index')->withCars($cars);
     }
 
@@ -35,10 +38,12 @@ class CarController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CarRequest $request)
     {
         Car::create($request->all());
-    
+        if ($request->ajax()){
+            return response()->json('Car created');
+        }
         return view('cars.index');
     }
 
@@ -48,10 +53,12 @@ class CarController extends Controller
      * @param  \App\Models\Car  $car
      * @return \Illuminate\Http\Response
      */
-    public function show(Car $car)
+    public function show(Request $request,Car $car)
     {
         $car = Car::findOrFail($car);
-
+        if ($request->ajax()){
+            return response()->json($car);
+        }
         return view('people.form')->withCar($car);
     }
 
@@ -61,10 +68,12 @@ class CarController extends Controller
      * @param  \App\Models\Car  $car
      * @return \Illuminate\Http\Response
      */
-    public function edit(Car $car)
+    public function edit(Request $request, Car $car)
     {
         $car = Car::findOrFail($car);
-
+        if ($request->ajax()){
+            return response()->json($car);
+        }
         return view('people.form')->withCar($car);
     }
 
@@ -75,10 +84,12 @@ class CarController extends Controller
      * @param  \App\Models\Car  $car
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Car $car)
+    public function update(CarRequest $request, Car $car)
     {
         Car::findOrFail($car)->update($request->all());
-    
+        if ($request->ajax()){
+            return response()->json('Car updated');
+        }
         return view('cars.index');
     }
 
@@ -88,8 +99,11 @@ class CarController extends Controller
      * @param  \App\Models\Car  $car
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Car $car)
+    public function destroy(Request $request, Car $car)
     {
         Car::findOrFail($car)->delete();
+        if ($request->ajax()){
+            return response()->json('Car deleted');
+        }
     }
 }

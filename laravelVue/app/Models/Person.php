@@ -19,6 +19,6 @@ class Person extends Model
 
     public function cars()
     {
-        return $this->belongsToMany(Car::class, 'dni', 'matricula');
+        return $this->belongsToMany(Car::class, 'dni', 'license');
     }
 }

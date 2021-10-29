@@ -20,6 +20,7 @@ class CreatePeopleTable extends Migration
             $table->text('lastname', 12);
             $table->integer('age')->nullable(2);
             $table->text('dni')->idNumber(7);
+            $table->text('email')->unique();
         });
     }
 
