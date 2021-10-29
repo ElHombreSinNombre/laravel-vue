@@ -49,8 +49,23 @@
 
 ## Other considerations
 
-A email system (with **[MailTrap](https://mailtrap.io/)**) send email when car is deleted from datatable. Email is sent to all user related to this car.
+### Email
 
-A user can drive any car, a car could driven by many user, **license-id card** relationship.
+- A email system (with **[MailTrap](https://mailtrap.io/)**) send email when car is deleted from datatable. Email is sent to all user related to this car.
 
+  A user can drive any car, a car could driven by many user, **license-id card** relationship.
+
+### Credentials
+
+- User and password
+
+    - Admin user
+
+        - Name: **Admin**
+        - Password: **Test**
+
+    - Reviewer user
+
+        - Name: **Reviewer**
+        - Passwod: **Test**
 
