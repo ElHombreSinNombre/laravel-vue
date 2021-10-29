@@ -1,20 +1,29 @@
-## Stack
+## Guide
 
-A email system (with **[MailTrap](https://mailtrap.io/)**) send email when car is deleted from datatable. Email is sent to all user related to this car
+- **[Vue (JS)](https://vuejs.org/)**. Frontend.
+- **[Tailwind (CSS)](https://tailwindcss.com/)**. Frontend. 
+    - Execute 
+    
+           npm install
 
-- **Vue (JS)**. Frontend.
-- **Tailwind (CSS)**. Frontend. 
-    - Execute *npm install*.
-    - Execute *npm run dev* or *npm run prod* to compile css (with **PostCSS**) and js.
+    - To compile css (with **[PostCSS](https://postcss.org/)**) and js execute this command 
+    
+          npm run dev | npm run prod 
 
-        - **PostCSS** is used with this plugins
-            - tailwindcss
-            - autoprefixer
-            - postcss-import
-            - precss
-            - postcss-pxtorem
+        - Install this **PostCSS** plugins
+            - [tailwindcss](https://tailwindcss.com/docs/guides/laravel) 
+            - autoprefixer. *npm i autoprefixer*.
+            - postcss-import. *npm i postcss-import*.
+            - precss. *npm i precss*. Includes all these plugins:
+                - postcss-extend-rule
+                - postcss-advanced-variables
+                - postcss-preset-env
+                - postcss-atroot
+                - postcss-property-lookup
+                - postcss-nested
+            - postcss-pxtorem. *npm i postcss-pxtorem*.
 
-- **Laravel (PHP)**. Backend.
+- **[Laravel (PHP)](https://laravel.com/)**. Backend.
     - Create *laravelvue* database.
     - Check database connection in *.env* file.
     - Execute
@@ -22,23 +31,26 @@ A email system (with **[MailTrap](https://mailtrap.io/)**) send email when car i
            php artisan migrate
            php artisan db:seed
            
-- **Docker**.
+- **[Docker](https://www.docker.com/)**.
     - [Install Docker Compose](https://docs.docker.com/compose/install/)
-- **Postman**.
-    - Check endpoints with **Newman**.
+
+    -  Launch this command
+
+           cd docker
+
+    - Launch this command.
+
+           docker-compose up -h
+
+- **[Postman](https://www.postman.com/)**.
+    - Launch this command
+
+           newman run XXX
+
+## Other considerations
+
+A email system (with **[MailTrap](https://mailtrap.io/)**) send email when car is deleted from datatable. Email is sent to all user related to this car.
+
+A user can drive any car, a car could driven by many user, **license-id card** relationship.
 
 
-tailwindcss
-autoprefixer
-postcss-import
-precss
-postcss-pxtorem
-
-Precss agrupa estos otros plugins.
-
-postcss-extend-rule
-postcss-advanced-variables
-postcss-preset-env
-postcss-atroot
-postcss-property-lookup
-postcss-nested
