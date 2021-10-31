@@ -33,6 +33,7 @@ Docker already has **[Node](https://nodejs.org/es/)**, **[Composer](https://getc
            php artisan migrate
            php artisan db:seed
     - Install [Laravel Collective](https://laravelcollective.com/docs/6.x/html).
+    - Install [Debugbar](https://github.com/barryvdh/laravel-debugbar).
            
 - **[Docker](https://www.docker.com/)**.
     - [Install Docker Compose](https://docs.docker.com/compose/install/)

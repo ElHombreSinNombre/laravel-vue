@@ -77,6 +77,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'CarsForm',
   props: {
@@ -97,8 +101,10 @@ __webpack_require__.r(__webpack_exports__);
       "default": ''
     }
   },
-  store: function store() {},
-  update: function update(id) {}
+  methods: {
+    store: function store() {},
+    update: function update(id) {}
+  }
 });
 
 /***/ }),
@@ -173,13 +179,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  "delete": function _delete(id) {
-    axios["delete"]("/people/" + id).then(function (response) {
-      console.log(response);
-      axios.get("/send/" + id).then(function (response) {
+  props: ['cars'],
+  methods: {
+    "delete": function _delete(id) {
+      axios["delete"]("/people/" + id).then(function (response) {
         console.log(response);
+        axios.get("/send/" + id).then(function (response) {
+          console.log(response);
+        });
       });
-    });
+    }
   }
 });
 
@@ -196,6 +205,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
+//
 //
 //
 //
@@ -254,8 +268,10 @@ __webpack_require__.r(__webpack_exports__);
       "default": ''
     }
   },
-  store: function store() {},
-  update: function update(id) {}
+  methods: {
+    store: function store() {},
+    update: function update(id) {}
+  }
 });
 
 /***/ }),
@@ -336,10 +352,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  "delete": function _delete(id) {
-    axios["delete"]("/people/" + id).then(function (response) {
-      console.log(response);
-    });
+  props: ['people'],
+  methods: {
+    "delete": function _delete(id) {
+      axios["delete"]("/people/" + id).then(function (response) {
+        console.log(response);
+      });
+    }
   }
 });
 
@@ -1039,152 +1058,165 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    {
+      staticClass:
+        "relative py-16 bg-blueGray-50 h-screen w-screen grid place-items-center",
+    },
+    [
+      _c("div", { staticClass: "w-full mb-12 px-4" }, [
+        _c(
+          "div",
+          {
+            staticClass:
+              "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-md rounded hover:shadow-2xl transition duration-500 ease-in-out\n  text-black",
+          },
+          [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "block w-full overflow-x-auto" }, [
+              _c(
+                "table",
+                {
+                  staticClass:
+                    "items-center w-full border-collapse  bg-gray-100",
+                },
+                [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.cars, function (car) {
+                      return _c("tr", { key: car.id }, [
+                        _c("td", { staticClass: "px-6 py-3 align-middle" }, [
+                          _vm._v(_vm._s(car.model)),
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "px-6 py-3 align-middle" }, [
+                          _vm._v(_vm._s(car.brand)),
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "px-6 py-3 align-middle" }, [
+                          _vm._v(_vm._s(car.color)),
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "px-6 py-3 align-middle" }, [
+                          _vm._v(_vm._s(car.license)),
+                        ]),
+                        _vm._v(" "),
+                        _vm._m(2, true),
+                      ])
+                    }),
+                    0
+                  ),
+                ]
+              ),
+            ]),
+          ]
+        ),
+      ]),
+    ]
+  )
 }
 var staticRenderFns = [
   function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
+    return _c("div", { staticClass: "rounded-t px-4 py-3  bg-gray-200" }, [
+      _c("div", { staticClass: "flex flex-wrap items-center" }, [
+        _c(
+          "div",
+          { staticClass: "relative w-full px-4 max-w-full flex-grow flex-1 " },
+          [
+            _c("h3", { staticClass: "font-semibold text-lg " }, [
+              _c("a", {
+                staticClass:
+                  "cursor-pointer fas fa-arrow-circle-left opacity-50 hover:opacity-100 transition duration-500 ease-in-out",
+                attrs: { href: "/choose" },
+              }),
+              _vm._v("\n                            Cars"),
+            ]),
+          ]
+        ),
+        _vm._v(" "),
+        _c("a", {
+          staticClass:
+            "text-right cursor-pointer fas fa-plus-circle opacity-50 text-black hover:text-green-600 transition duration-500 ease-in-out hover:opacity-100",
+          attrs: { href: "/cars/create" },
+        }),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c(
+          "th",
+          {
+            staticClass:
+              "px-6 align-middle border border-solid py-3 text-xs uppercase  whitespace-nowrap font-semibold text-left ",
+          },
+          [_vm._v("\n                                Model")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass:
+              "px-6 align-middle border border-solid py-3 text-xs uppercase whitespace-nowrap font-semibold text-left ",
+          },
+          [_vm._v("\n                                Brand")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass:
+              "px-6 align-middle border border-solid py-3 text-xs uppercase  whitespace-nowrap font-semibold text-left ",
+          },
+          [_vm._v("\n                                Color")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass:
+              "px-6 align-middle border border-solid py-3 text-xs uppercase  whitespace-nowrap font-semibold text-left ",
+          },
+          [_vm._v("\n                                License")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass:
+              "px-6 align-middle border border-solid py-3 text-xs uppercase  whitespace-nowrap font-semibold text-left ",
+          },
+          [_vm._v("\n                                Action")]
+        ),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { staticClass: "px-6 py-3 align-middle" }, [
+      _c("i", {
         staticClass:
-          "relative py-16 bg-blueGray-50 h-screen w-screen grid place-items-center",
-      },
-      [
-        _c("div", { staticClass: "w-full mb-12 px-4" }, [
-          _c(
-            "div",
-            {
-              staticClass:
-                "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-md rounded hover:shadow-2xl transition duration-500 ease-in-out\n  text-black",
-            },
-            [
-              _c("div", { staticClass: "rounded-t px-4 py-3  bg-gray-200" }, [
-                _c("div", { staticClass: "flex flex-wrap items-center" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "relative w-full px-4 max-w-full flex-grow flex-1 ",
-                    },
-                    [
-                      _c("h3", { staticClass: "font-semibold text-lg " }, [
-                        _c("a", {
-                          staticClass:
-                            "cursor-pointer fas fa-arrow-circle-left",
-                          attrs: { href: "/choose" },
-                        }),
-                        _vm._v("\n                            Cars"),
-                      ]),
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("a", {
-                    staticClass:
-                      "text-right cursor-pointer fas fa-plus-circle hover:text-green-600 transition duration-500 ease-in-out",
-                    attrs: { href: "/cars/create" },
-                  }),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "block w-full overflow-x-auto" }, [
-                _c(
-                  "table",
-                  {
-                    staticClass:
-                      "items-center w-full border-collapse  bg-gray-100",
-                  },
-                  [
-                    _c("thead", [
-                      _c("tr", [
-                        _c(
-                          "th",
-                          {
-                            staticClass:
-                              "px-6 align-middle border border-solid py-3 text-xs uppercase  whitespace-nowrap font-semibold text-left ",
-                          },
-                          [_vm._v("\n                                Model")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "th",
-                          {
-                            staticClass:
-                              "px-6 align-middle border border-solid py-3 text-xs uppercase whitespace-nowrap font-semibold text-left ",
-                          },
-                          [_vm._v("\n                                Brand")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "th",
-                          {
-                            staticClass:
-                              "px-6 align-middle border border-solid py-3 text-xs uppercase  whitespace-nowrap font-semibold text-left ",
-                          },
-                          [_vm._v("\n                                Color")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "th",
-                          {
-                            staticClass:
-                              "px-6 align-middle border border-solid py-3 text-xs uppercase  whitespace-nowrap font-semibold text-left ",
-                          },
-                          [_vm._v("\n                                License")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "th",
-                          {
-                            staticClass:
-                              "px-6 align-middle border border-solid py-3 text-xs uppercase  whitespace-nowrap font-semibold text-left ",
-                          },
-                          [_vm._v("\n                                Action")]
-                        ),
-                      ]),
-                    ]),
-                    _vm._v(" "),
-                    _c("tbody", [
-                      _c("tr", {}, [
-                        _c("td", { staticClass: "px-6 py-3 align-middle" }, [
-                          _vm._v("Test"),
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "px-6 py-3 align-middle" }, [
-                          _vm._v("Test"),
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "px-6 py-3 align-middle" }, [
-                          _vm._v("Test"),
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "px-6 py-3 align-middle" }, [
-                          _vm._v("Test"),
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "px-6 py-3 align-middle" }, [
-                          _c("i", {
-                            staticClass:
-                              "cursor-pointer hover:text-blue-600 transition duration-500 ease-in-out fas fa-edit",
-                          }),
-                          _vm._v("\n                                | "),
-                          _c("i", {
-                            staticClass:
-                              "hover:text-red-600 transition duration-500 ease-in-out cursor-pointer fas fa-trash",
-                          }),
-                        ]),
-                      ]),
-                    ]),
-                  ]
-                ),
-              ]),
-            ]
-          ),
-        ]),
-      ]
-    )
+          "cursor-pointer hover:text-blue-600 transition duration-500 ease-in-out fas fa-edit",
+      }),
+      _vm._v("\n                                | "),
+      _c("i", {
+        staticClass:
+          "hover:text-red-600 transition duration-500 ease-in-out cursor-pointer fas fa-trash",
+      }),
+    ])
   },
 ]
 render._withStripped = true
@@ -1450,177 +1482,178 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    {
+      staticClass:
+        "relative py-16 bg-blueGray-50 h-screen w-screen grid place-items-center",
+    },
+    [
+      _c("div", { staticClass: "w-full mb-12 px-4" }, [
+        _c(
+          "div",
+          {
+            staticClass:
+              "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-md rounded hover:shadow-2xl transition duration-500 ease-in-out\n  text-black",
+          },
+          [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "block w-full overflow-x-auto" }, [
+              _c(
+                "table",
+                {
+                  staticClass:
+                    "items-center w-full border-collapse  bg-gray-100",
+                },
+                [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.people, function (person) {
+                      return _c("tr", { key: person.id }, [
+                        _c("td", { staticClass: "px-6 py-3 align-middle" }, [
+                          _vm._v(_vm._s(person.name)),
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "px-6 py-3 align-middle" }, [
+                          _vm._v(_vm._s(person.lastname)),
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "px-6 py-3 align-middle" }, [
+                          _vm._v(_vm._s(person.age)),
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "px-6 py-3 align-middle" }, [
+                          _vm._v(_vm._s(person.dni)),
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "px-6 py-3 align-middle" }, [
+                          _vm._v(_vm._s(person.email)),
+                        ]),
+                        _vm._v(" "),
+                        _vm._m(2, true),
+                      ])
+                    }),
+                    0
+                  ),
+                ]
+              ),
+            ]),
+          ]
+        ),
+      ]),
+    ]
+  )
 }
 var staticRenderFns = [
   function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
+    return _c("div", { staticClass: "rounded-t px-4 py-3  bg-gray-200" }, [
+      _c("div", { staticClass: "flex flex-wrap items-center" }, [
+        _c(
+          "div",
+          { staticClass: "relative w-full px-4 max-w-full flex-grow flex-1 " },
+          [
+            _c("h3", { staticClass: "font-semibold text-lg " }, [
+              _c("a", {
+                staticClass:
+                  "cursor-pointer fas fa-arrow-circle-left opacity-50 hover:opacity-100 transition duration-500 ease-in-out",
+                attrs: { href: "/choose" },
+              }),
+              _vm._v("\n                            People"),
+            ]),
+          ]
+        ),
+        _vm._v(" "),
+        _c("a", {
+          staticClass:
+            "text-right cursor-pointer fas fa-plus-circle opacity-50 text-black hover:text-green-600 transition duration-500 ease-in-out hover:opacity-100",
+          attrs: { href: "/people/create" },
+        }),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c(
+          "th",
+          {
+            staticClass:
+              "px-6 align-middle border border-solid py-3 text-xs uppercase  whitespace-nowrap font-semibold text-left ",
+          },
+          [_vm._v("\n                                Name")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass:
+              "px-6 align-middle border border-solid py-3 text-xs uppercase whitespace-nowrap font-semibold text-left ",
+          },
+          [_vm._v("\n                                Lastname")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass:
+              "px-6 align-middle border border-solid py-3 text-xs uppercase  whitespace-nowrap font-semibold text-left ",
+          },
+          [_vm._v("\n                                Age")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass:
+              "px-6 align-middle border border-solid py-3 text-xs uppercase  whitespace-nowrap font-semibold text-left ",
+          },
+          [_vm._v("\n                                DNI")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass:
+              "px-6 align-middle border border-solid py-3 text-xs uppercase  whitespace-nowrap font-semibold text-left ",
+          },
+          [_vm._v("\n                                Email")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass:
+              "px-6 align-middle border border-solid py-3 text-xs uppercase  whitespace-nowrap font-semibold text-left ",
+          },
+          [_vm._v("\n                                Action")]
+        ),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { staticClass: "px-6 py-3 align-middle" }, [
+      _c("i", {
         staticClass:
-          "relative py-16 bg-blueGray-50 h-screen w-screen grid place-items-center",
-      },
-      [
-        _c("div", { staticClass: "w-full mb-12 px-4" }, [
-          _c(
-            "div",
-            {
-              staticClass:
-                "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-md rounded hover:shadow-2xl transition duration-500 ease-in-out\n  text-black",
-            },
-            [
-              _c("div", { staticClass: "rounded-t px-4 py-3  bg-gray-200" }, [
-                _c("div", { staticClass: "flex flex-wrap items-center" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "relative w-full px-4 max-w-full flex-grow flex-1 ",
-                    },
-                    [
-                      _c("h3", { staticClass: "font-semibold text-lg " }, [
-                        _c("a", {
-                          staticClass:
-                            "cursor-pointer fas fa-arrow-circle-left hover:animate-bounce",
-                          attrs: { href: "/choose" },
-                        }),
-                        _vm._v("\n                            People"),
-                      ]),
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("a", {
-                    staticClass:
-                      "text-right cursor-pointer fas fa-plus-circle hover:text-green-600 transition duration-500 ease-in-out",
-                    attrs: { href: "/people/create" },
-                  }),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "block w-full overflow-x-auto" }, [
-                _c(
-                  "table",
-                  {
-                    staticClass:
-                      "items-center w-full border-collapse  bg-gray-100",
-                  },
-                  [
-                    _c("thead", [
-                      _c("tr", [
-                        _c(
-                          "th",
-                          {
-                            staticClass:
-                              "px-6 align-middle border border-solid py-3 text-xs uppercase  whitespace-nowrap font-semibold text-left ",
-                          },
-                          [_vm._v("\n                                    Name")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "th",
-                          {
-                            staticClass:
-                              "px-6 align-middle border border-solid py-3 text-xs uppercase whitespace-nowrap font-semibold text-left ",
-                          },
-                          [
-                            _vm._v(
-                              "\n                                    Lastname"
-                            ),
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "th",
-                          {
-                            staticClass:
-                              "px-6 align-middle border border-solid py-3 text-xs uppercase  whitespace-nowrap font-semibold text-left ",
-                          },
-                          [_vm._v("\n                                    Age")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "th",
-                          {
-                            staticClass:
-                              "px-6 align-middle border border-solid py-3 text-xs uppercase  whitespace-nowrap font-semibold text-left ",
-                          },
-                          [_vm._v("\n                                    DNI")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "th",
-                          {
-                            staticClass:
-                              "px-6 align-middle border border-solid py-3 text-xs uppercase  whitespace-nowrap font-semibold text-left ",
-                          },
-                          [
-                            _vm._v(
-                              "\n                                    Email"
-                            ),
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "th",
-                          {
-                            staticClass:
-                              "px-6 align-middle border border-solid py-3 text-xs uppercase  whitespace-nowrap font-semibold text-left ",
-                          },
-                          [
-                            _vm._v(
-                              "\n                                    Action"
-                            ),
-                          ]
-                        ),
-                      ]),
-                    ]),
-                    _vm._v(" "),
-                    _c("tbody", [
-                      _c("tr", {}, [
-                        _c("td", { staticClass: "px-6 py-3 align-middle" }, [
-                          _vm._v("Test"),
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "px-6 py-3 align-middle" }, [
-                          _vm._v("Test"),
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "px-6 py-3 align-middle" }, [
-                          _vm._v("Test"),
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "px-6 py-3 align-middle" }, [
-                          _vm._v("Test"),
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "px-6 py-3 align-middle" }, [
-                          _vm._v("Test"),
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "px-6 py-3 align-middle" }, [
-                          _c("i", {
-                            staticClass:
-                              "cursor-pointer hover:text-blue-600 transition duration-500 ease-in-out fas fa-edit",
-                          }),
-                          _vm._v("\n                                    | "),
-                          _c("i", {
-                            staticClass:
-                              "hover:text-red-600 transition duration-500 ease-in-out cursor-pointer fas fa-trash",
-                          }),
-                        ]),
-                      ]),
-                    ]),
-                  ]
-                ),
-              ]),
-            ]
-          ),
-        ]),
-      ]
-    )
+          "cursor-pointer hover:text-blue-600 transition duration-500 ease-in-out fas fa-edit",
+      }),
+      _vm._v("\n                                | "),
+      _c("i", {
+        staticClass:
+          "hover:text-red-600 transition duration-500 ease-in-out cursor-pointer fas fa-trash",
+      }),
+    ])
   },
 ]
 render._withStripped = true

@@ -6,11 +6,13 @@
             <form action="/" method="post">
                 <div class="flex flex-col mb-4">
                     <label class="mb-2 font-bold text-lg text-gray-900" for="model">Model</label>
-                    <input class="border py-2 px-3 text-grey-800" type="text" name="model" v-model="model" placeholder="Model">
+                    <input class="border py-2 px-3 text-grey-800" type="text" name="model" v-model="model"
+                        placeholder="Model">
                 </div>
                 <div class="flex flex-col mb-4">
                     <label class="mb-2 font-bold text-lg text-gray-900" for="brand">Last Name</label>
-                    <input class="border py-2 px-3 text-grey-800" type="text" name="brand" v-model="brand" placeholder="Brand">
+                    <input class="border py-2 px-3 text-grey-800" type="text" name="brand" v-model="brand"
+                        placeholder="Brand">
                 </div>
                 <div class="flex flex-col mb-4">
                     <label class="mb-2 font-bold text-lg text-gray-900" for="color">color</label>
@@ -18,9 +20,11 @@
                 </div>
                 <div class="flex flex-col mb-4">
                     <label class="mb-2 font-bold text-lg text-gray-900" for="license">License</label>
-                    <input class="border py-2 px-3 text-grey-800" type="license" name="license" v-model="license" placeholder="License">
+                    <input class="border py-2 px-3 text-grey-800" type="license" name="license" v-model="license"
+                        placeholder="License">
                 </div>
-                <button class="w-full bg-blue-400 hover:bg-blue-600 transition duration-500 ease-in-out text-white p-3 rounded"
+                <button
+                    class="w-full bg-blue-400 hover:bg-blue-600 transition duration-500 ease-in-out text-white p-3 rounded"
                     type="submit">Save</button>
             </form>
         </div>
@@ -49,8 +53,10 @@
                 default: ''
             }
         },
-        store: function () {},
-        update: function (id) {}
+        methods: {
+            store: function () {},
+            update: function (id) {}
+        }
     }
 
 </script>

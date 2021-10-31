@@ -6,11 +6,13 @@
             <form action="/" method="post">
                 <div class="flex flex-col mb-4">
                     <label class="mb-2 font-bold text-lg text-gray-900" for="name">Name</label>
-                    <input class="border py-2 px-3 text-grey-800" type="text" name="name" v-model="name" placeholder="Name">
+                    <input class="border py-2 px-3 text-grey-800" type="text" name="name" v-model="name"
+                        placeholder="Name">
                 </div>
                 <div class="flex flex-col mb-4">
                     <label class="mb-2 font-bold text-lg text-gray-900" for="last_name">Last Name</label>
-                    <input class="border py-2 px-3 text-grey-800" type="text" name="lastname" v-model="lastname" placeholder="Lastname">
+                    <input class="border py-2 px-3 text-grey-800" type="text" name="lastname" v-model="lastname"
+                        placeholder="Lastname">
                 </div>
                 <div class="flex flex-col mb-4">
                     <label class="mb-2 font-bold text-lg text-gray-900" for="age">Age</label>
@@ -19,13 +21,16 @@
                 </div>
                 <div class="flex flex-col mb-4">
                     <label class="mb-2 font-bold text-lg text-gray-900" for="dni">DNI</label>
-                    <input class="border py-2 px-3 text-grey-800" type="text" name="dni" v-model="dni" placeholder="DNI">
+                    <input class="border py-2 px-3 text-grey-800" type="text" name="dni" v-model="dni"
+                        placeholder="DNI">
                 </div>
                 <div class="flex flex-col mb-4">
                     <label class="mb-2 font-bold text-lg text-gray-900" for="password">Password</label>
-                    <input class="border py-2 px-3 text-grey-800" type="password" name="password" v-model="password" placeholder="Password">
+                    <input class="border py-2 px-3 text-grey-800" type="password" name="password" v-model="password"
+                        placeholder="Password">
                 </div>
-                <button class="w-full bg-blue-400 hover:bg-blue-600 transition duration-500 ease-in-out text-white p-3 rounded"
+                <button
+                    class="w-full bg-blue-400 hover:bg-blue-600 transition duration-500 ease-in-out text-white p-3 rounded"
                     type="submit">Save</button>
             </form>
         </div>
@@ -57,8 +62,10 @@
                 default: ''
             }
         },
-        store: function () {},
-        update: function (id) {}
+        methods: {
+            store: function () {},
+            update: function (id) {}
+        }
     }
 
 </script>
