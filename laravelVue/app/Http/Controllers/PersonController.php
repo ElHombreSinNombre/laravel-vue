@@ -8,6 +8,15 @@ use App\Http\Requests\PersonRequest;
 
 class PersonController extends Controller
 {
+
+    /**
+     * Instantiate a new PersonController instance.
+     */
+    public function __construct()
+    {
+        $this->middleware('isAdmin', ['except' => ['index', 'show']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

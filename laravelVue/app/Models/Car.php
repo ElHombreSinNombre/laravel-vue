@@ -10,6 +10,13 @@ class Car extends Model
 {
     use HasFactory;
 
+   /**
+     * The primary key associated with the table.
+     *
+     * @var string
+     */
+    protected $primaryKey = 'license';
+
     /**
      * The attributes that aren't mass assignable.
      *
@@ -19,6 +26,6 @@ class Car extends Model
 
     public function people()
     {
-        return $this->belongsToMany(User::class, 'license','dni');
+        return $this->belongsToMany(User::class);
     }
 }

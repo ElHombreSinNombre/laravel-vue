@@ -4,7 +4,11 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+//require('./bootstrap');
+
+//import VueSweetalert2 from 'vue-sweetalert2';
+
+//Vue.use(VueSweetalert2);
 
 window.Vue = require('vue').default;
 
@@ -19,6 +23,12 @@ window.Vue = require('vue').default;
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
+Vue.component('cars-form-component', require('./components/cars/FormComponent.vue').default);
+Vue.component('cars-table-component', require('./components/cars/TableComponent.vue').default);
+
+Vue.component('people-form-component', require('./components/people/FormComponent.vue').default);
+Vue.component('people-table-component', require('./components/people/TableComponent.vue').default);
+
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 /**
@@ -29,4 +39,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
+    methods: {
+        goBack: function () {}
+    },
 });

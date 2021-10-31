@@ -19,7 +19,7 @@ class CreateCarsTable extends Migration
             $table->text('model', 12);
             $table->text('brand', 12);
             $table->text('color', 12);
-            $table->text('license')->unique(7);
+            $table->text('license', 7)->idNumber()->unique();
         });
     }
 

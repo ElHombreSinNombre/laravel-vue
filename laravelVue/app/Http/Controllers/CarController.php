@@ -8,6 +8,15 @@ use App\Http\Requests\CarRequest;
 
 class CarController extends Controller
 {
+
+    /**
+     * Instantiate a new CarController instance.
+     */
+    public function __construct()
+    {
+        $this->middleware('isAdmin', ['except' => ['index', 'show']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
