@@ -7,7 +7,7 @@ Docker already has **[Node](https://nodejs.org/es/)**, **[Composer](https://getc
 - **[Tailwind (CSS)](https://tailwindcss.com/)**. Frontend. 
 
     - Install [FontAwesome](https://www.npmjs.com/package/@fortawesome/fontawesome-free)
-    - To compile css (with **[PostCSS](https://postcss.org/)**) and js Launch this command 
+    - To compile css (with **[PostCSS](https://postcss.org/)**) and js launch this command 
     
           npm run dev | npm run prod 
 

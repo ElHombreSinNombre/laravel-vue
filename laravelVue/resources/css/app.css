@@ -36,3 +36,19 @@ html::-webkit-scrollbar-thumb:active {
     background: rgba(68, 68, 68, 1);
     border-radius: 10px;
 }
+
+/* Tables */
+
+.fade-leave-active, .fade-enter-active {
+    transition: all 3s;
+    background-color: #f44336;
+}
+
+.fade-leave-to,.fade-enter {
+    opacity: 0;
+}
+
+/* Sweetalert2 */
+.swal2-popup {
+    border: 1px solid black;
+}

@@ -4,13 +4,17 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-//require('./bootstrap');
-
-//import VueSweetalert2 from 'vue-sweetalert2';
-
-//Vue.use(VueSweetalert2);
+require('./bootstrap');
 
 window.Vue = require('vue').default;
+
+/**
+ * SweetAlert2 plugin
+ */
+
+import VueSweetalert2 from 'vue-sweetalert2';
+
+Vue.use(VueSweetalert2);
 
 /**
  * The following block of code may be used to automatically register your

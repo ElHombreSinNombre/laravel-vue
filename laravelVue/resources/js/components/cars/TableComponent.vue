@@ -11,7 +11,7 @@
                                 Cars</h3>
                         </div>
                         <a href="/cars/create"
-                                    class="text-right cursor-pointer fas fa-plus-circle opacity-50 text-black hover:text-green-600 transition duration-500 ease-in-out hover:opacity-100"></a>
+                            class="text-right cursor-pointer fas fa-plus-circle opacity-50 text-black hover:text-green-600 transition duration-500 ease-in-out hover:opacity-100"></a>
                     </div>
                 </div>
                 <div class="block w-full overflow-x-auto">
@@ -19,32 +19,32 @@
                         <thead>
                             <tr>
                                 <th
-                                    class="px-6 align-middle border border-solid py-3 text-xs uppercase  whitespace-nowrap font-semibold text-left ">
+                                    class="px-6 align-middle border border-solid py-3 text-xs uppercase whitespace-nowrap font-semibold text-left ">
                                     Model</th>
                                 <th
                                     class="px-6 align-middle border border-solid py-3 text-xs uppercase whitespace-nowrap font-semibold text-left ">
                                     Brand</th>
                                 <th
-                                    class="px-6 align-middle border border-solid py-3 text-xs uppercase  whitespace-nowrap font-semibold text-left ">
+                                    class="px-6 align-middle border border-solid py-3 text-xs uppercase whitespace-nowrap font-semibold text-left ">
                                     Color</th>
                                 <th
-                                    class="px-6 align-middle border border-solid py-3 text-xs uppercase  whitespace-nowrap font-semibold text-left ">
+                                    class="px-6 align-middle border border-solid py-3 text-xs uppercase whitespace-nowrap font-semibold text-left ">
                                     License</th>
                                 <th
-                                    class="px-6 align-middle border border-solid py-3 text-xs uppercase  whitespace-nowrap font-semibold text-left ">
+                                    class="px-6 align-middle border border-solid py-3 text-xs uppercase whitespace-nowrap font-semibold text-left ">
                                     Action</th>
                             </tr>
 
                         </thead>
-                        <tbody>
-                            <tr v-for="car in cars" :key="car.id">
+                        <tbody is="transition-group" name="fade">
+                            <tr v-for="(car, index) in list" :key="car.id">
                                 <td class="px-6 py-3 align-middle">{{car.model}}</td>
                                 <td class="px-6 py-3 align-middle">{{car.brand}}</td>
                                 <td class="px-6 py-3 align-middle">{{car.color}}</td>
                                 <td class="px-6 py-3 align-middle">{{car.license}}</td>
                                 <td class="px-6 py-3 align-middle"><i
                                         class="cursor-pointer hover:text-blue-600 transition duration-500 ease-in-out fas fa-edit"></i>
-                                    | <i
+                                    | <i @click="deleteCar(car.id, index)"
                                         class="hover:text-red-600 transition duration-500 ease-in-out cursor-pointer fas fa-trash"></i>
                                 </td>
                             </tr>
@@ -58,19 +58,48 @@
 
 <script>
     export default {
-        props: ['cars'],
+        data: function () {
+            return {
+                list: []
+            }
+        },
+        created: function () {
+            this.list = this.cars;
+        },
+        props: {
+            cars: {
+                type: Array,
+                default: []
+            },
+        },
         methods: {
-            delete: function (id) {
-                axios
-                    .delete("/people/" + id)
-                    .then((response) => {
-                        console.log(response);
-                        axios
-                            .get("/send/" + id)
-                            .then((response) => {
-                                console.log(response);
+            deleteCar: function (id, index) {
+                this.$swal({
+                    title: "¿Está seguro que desea eliminar el coche?",
+                    icon: "question",
+                    showCancelButton: true,
+                    confirmButtonColor: "#f44336",
+                    confirmButtonText: "Sí",
+                    cancelButtonText: "No"
+                }).then((result) => {
+                    if (result.value == true) {
+                        axios.delete((`https://jsonplaceholder.typicode.com/posts/${id}`))
+                            .then(() => {
+                                this.cars.splice(index, 1);
+                                this.$swal({
+                                    title: "Elemento eliminado",
+                                    icon: 'success',
+                                    toast: true,
+                                    showConfirmButton: false,
+                                    position: 'top-end',
+                                    timerProgressBar: true,
+                                    timer: 5000
+                                })
+                            }).catch((error) => {
+                                console.log(error);
                             });
-                    });
+                    }
+                })
             },
         }
     };

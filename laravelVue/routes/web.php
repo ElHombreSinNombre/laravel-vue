@@ -37,7 +37,7 @@ Route::get('/choose', function () {
 
 Route::resource('cars', CarController::class)->middleware('auth');
 
-Route::resource('people',PersonController::class)->middleware('auth');
+Route::resource('people', PersonController::class)->middleware('auth');
 
 Route::get('/send', [CarDeletedMailController::class, 'email'])->name('email');
 

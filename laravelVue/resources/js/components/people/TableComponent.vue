@@ -40,19 +40,19 @@
                             </tr>
 
                         </thead>
-                        <tbody>
-                            <tr v-for="person in people" :key="person.id">
-                                <td class="px-6 py-3 align-middle">{{person.name}}</td>
-                                <td class="px-6 py-3 align-middle">{{person.lastname}}</td>
-                                <td class="px-6 py-3 align-middle">{{person.age}}</td>
-                                <td class="px-6 py-3 align-middle">{{person.dni}}</td>
-                                <td class="px-6 py-3 align-middle">{{person.email}}</td>
-                                <td class="px-6 py-3 align-middle"><i
-                                        class="cursor-pointer hover:text-blue-600 transition duration-500 ease-in-out fas fa-edit"></i>
-                                    | <i
-                                        class="hover:text-red-600 transition duration-500 ease-in-out cursor-pointer fas fa-trash"></i>
-                                </td>
-                            </tr>
+                        <tbody is="transition-group" name="fade">
+                                <tr v-for="(person, index) in list" :key="person.id">
+                                    <td class="px-6 py-3 align-middle">{{person.name}}</td>
+                                    <td class="px-6 py-3 align-middle">{{person.lastname}}</td>
+                                    <td class="px-6 py-3 align-middle">{{person.age}}</td>
+                                    <td class="px-6 py-3 align-middle">{{person.dni}}</td>
+                                    <td class="px-6 py-3 align-middle">{{person.email}}</td>
+                                    <td class="px-6 py-3 align-middle"><i
+                                            class="cursor-pointer hover:text-blue-600 transition duration-500 ease-in-out fas fa-edit"></i>
+                                        | <i @click="deletePerson(person.id, index)"
+                                            class="hover:text-red-600 transition duration-500 ease-in-out cursor-pointer fas fa-trash"></i>
+                                    </td>
+                                </tr>
                         </tbody>
                     </table>
                 </div>
@@ -64,14 +64,48 @@
 
 <script>
     export default {
-        props: ['people'],
+        data: function () {
+            return {
+                list: []
+            }
+        },
+        created: function () {
+            this.list = this.people;
+        },
+        props: {
+            people: {
+                type: Array,
+                default: []
+            },
+        },
         methods: {
-            delete: function (id) {
-                axios
-                    .delete("/people/" + id)
-                    .then((response) => {
-                        console.log(response);
-                    });
+            deletePerson: function (id, index) {
+                this.$swal({
+                    title: "¿Está seguro que desea eliminar la persona?",
+                    icon: "question",
+                    showCancelButton: true,
+                    confirmButtonColor: "#f44336",
+                    confirmButtonText: "Sí",
+                    cancelButtonText: "No"
+                }).then((result) => {
+                    if (result.value == true) {
+                        axios.delete((`https://jsonplaceholder.typicode.com/posts/${id}`))
+                            .then(() => {
+                                this.list.splice(index, 1)
+                                this.$swal({
+                                    title: "Elemento eliminado",
+                                    icon: 'success',
+                                    toast: true,
+                                    showConfirmButton: false,
+                                    position: 'top-end',
+                                    timerProgressBar: true,
+                                    timer: 5000
+                                })
+                            }).catch((error) => {
+                                console.log(error);
+                            });
+                    }
+                })
             },
         }
     };
