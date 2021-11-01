@@ -5,10 +5,10 @@
       text-black">
                 <div class="rounded-t px-4 py-3  bg-gray-200">
                     <div class="flex flex-wrap items-center">
-                        <div class="relative w-full px-4 max-w-full flex-grow flex-1 ">
-
-                            <h3 class="font-semibold text-lg "> <a href="/choose"
+                        <a href="/choose"
                                     class="cursor-pointer fas fa-arrow-circle-left opacity-50 hover:opacity-100 transition duration-500 ease-in-out"></a>
+                        <div class="relative w-full px-4 max-w-full flex-grow flex-1 ">
+                            <h3 class="font-semibold text-lg "> 
                                 People</h3>
                         </div>
                         <a href="/people/create"
@@ -89,7 +89,7 @@
                     cancelButtonText: "No"
                 }).then((result) => {
                     if (result.value == true) {
-                        axios.delete((`https://jsonplaceholder.typicode.com/posts/${id}`))
+                        axios.delete("/people/"+id)
                             .then(() => {
                                 this.list.splice(index, 1)
                                 this.$swal({

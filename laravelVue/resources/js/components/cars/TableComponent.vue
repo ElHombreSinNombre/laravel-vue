@@ -5,9 +5,10 @@
       text-black">
                 <div class="rounded-t px-4 py-3  bg-gray-200">
                     <div class="flex flex-wrap items-center">
+                        <a href="/choose"
+                            class="cursor-pointer fas fa-arrow-circle-left opacity-50 hover:opacity-100 transition duration-500 ease-in-out"></a>
                         <div class="relative w-full px-4 max-w-full flex-grow flex-1 ">
-                            <h3 class="font-semibold text-lg "> <a href="/choose"
-                                    class="cursor-pointer fas fa-arrow-circle-left opacity-50 hover:opacity-100 transition duration-500 ease-in-out"></a>
+                            <h3 class="font-semibold text-lg ">
                                 Cars</h3>
                         </div>
                         <a href="/cars/create"
@@ -83,9 +84,9 @@
                     cancelButtonText: "No"
                 }).then((result) => {
                     if (result.value == true) {
-                        axios.delete((`https://jsonplaceholder.typicode.com/posts/${id}`))
+                        axios.delete("/cars/" + id)
                             .then(() => {
-                                this.cars.splice(index, 1);
+                                this.list.splice(index, 1);
                                 this.$swal({
                                     title: "Elemento eliminado",
                                     icon: 'success',
@@ -94,6 +95,11 @@
                                     position: 'top-end',
                                     timerProgressBar: true,
                                     timer: 5000
+                                })
+                                axios.get("/send/" + id).then((response) => {
+                                    console.log(response);
+                                }).catch((error) => {
+                                    console.log(error);
                                 })
                             }).catch((error) => {
                                 console.log(error);

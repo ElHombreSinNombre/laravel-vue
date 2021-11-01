@@ -64,11 +64,11 @@ class PersonController extends Controller
      */
     public function show(Request $request, Person $person)
     {
-        $person = Person::findOrFail($person);
+        $findPerson = Person::findOrFail($person->id);
         if ($request->ajax()){
-            return response()->json($person);
+            return response()->json($findPerson);
         }
-        return view('people.form')->withPerson($person);
+        return view('people.form')->withPerson($findPerson);
     }
 
     /**
@@ -77,13 +77,13 @@ class PersonController extends Controller
      * @param  \App\Models\Person  $person
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request,Person $person)
+    public function edit(Request $request, Person $person)
     {
-        $person = Person::findOrFail($person);
+        $findPerson = Person::findOrFail($person->id);
         if ($request->ajax()){
-            return response()->json($person);
+            return response()->json($findPerson);
         }
-        return view('people.form')->withPerson($person);
+        return view('people.form')->withPerson($findPerson);
     }
 
     /**
@@ -95,7 +95,7 @@ class PersonController extends Controller
      */
     public function update(PersonRequest $request, Person $person)
     {
-        Person::findOrFail($person)->update($request->all());
+        Person::findOrFail($person->id)->update($request->all());
         if ($request->ajax()){
             return response()->json('Car updated');
         }
@@ -110,7 +110,7 @@ class PersonController extends Controller
      */
     public function destroy(Request $request, Person $person)
     {
-        Person::findOrFail($person)->delete();
+        Person::findOrFail($person->id)->delete();
         if ($request->ajax()){
             return response()->json('Person deleted');
         }

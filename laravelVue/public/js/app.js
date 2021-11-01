@@ -2231,6 +2231,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2259,8 +2260,8 @@ __webpack_require__.r(__webpack_exports__);
         cancelButtonText: "No"
       }).then(function (result) {
         if (result.value == true) {
-          axios["delete"]("https://jsonplaceholder.typicode.com/posts/".concat(id)).then(function () {
-            _this.cars.splice(index, 1);
+          axios["delete"]("/cars/" + id).then(function () {
+            _this.list.splice(index, 1);
 
             _this.$swal({
               title: "Elemento eliminado",
@@ -2270,6 +2271,12 @@ __webpack_require__.r(__webpack_exports__);
               position: 'top-end',
               timerProgressBar: true,
               timer: 5000
+            });
+
+            axios.get("/send/" + id).then(function (response) {
+              console.log(response);
+            })["catch"](function (error) {
+              console.log(error);
             });
           })["catch"](function (error) {
             console.log(error);
@@ -2467,7 +2474,7 @@ __webpack_require__.r(__webpack_exports__);
         cancelButtonText: "No"
       }).then(function (result) {
         if (result.value == true) {
-          axios["delete"]("https://jsonplaceholder.typicode.com/posts/".concat(id)).then(function () {
+          axios["delete"]("/people/" + id).then(function () {
             _this.list.splice(index, 1);
 
             _this.$swal({
@@ -20734,16 +20741,17 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "rounded-t px-4 py-3  bg-gray-200" }, [
       _c("div", { staticClass: "flex flex-wrap items-center" }, [
+        _c("a", {
+          staticClass:
+            "cursor-pointer fas fa-arrow-circle-left opacity-50 hover:opacity-100 transition duration-500 ease-in-out",
+          attrs: { href: "/choose" },
+        }),
+        _vm._v(" "),
         _c(
           "div",
           { staticClass: "relative w-full px-4 max-w-full flex-grow flex-1 " },
           [
             _c("h3", { staticClass: "font-semibold text-lg " }, [
-              _c("a", {
-                staticClass:
-                  "cursor-pointer fas fa-arrow-circle-left opacity-50 hover:opacity-100 transition duration-500 ease-in-out",
-                attrs: { href: "/choose" },
-              }),
               _vm._v("\n                            Cars"),
             ]),
           ]
@@ -21163,17 +21171,18 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "rounded-t px-4 py-3  bg-gray-200" }, [
       _c("div", { staticClass: "flex flex-wrap items-center" }, [
+        _c("a", {
+          staticClass:
+            "cursor-pointer fas fa-arrow-circle-left opacity-50 hover:opacity-100 transition duration-500 ease-in-out",
+          attrs: { href: "/choose" },
+        }),
+        _vm._v(" "),
         _c(
           "div",
           { staticClass: "relative w-full px-4 max-w-full flex-grow flex-1 " },
           [
             _c("h3", { staticClass: "font-semibold text-lg " }, [
-              _c("a", {
-                staticClass:
-                  "cursor-pointer fas fa-arrow-circle-left opacity-50 hover:opacity-100 transition duration-500 ease-in-out",
-                attrs: { href: "/choose" },
-              }),
-              _vm._v("\n                            People"),
+              _vm._v(" \n                            People"),
             ]),
           ]
         ),

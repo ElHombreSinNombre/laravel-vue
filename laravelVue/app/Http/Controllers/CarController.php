@@ -62,13 +62,13 @@ class CarController extends Controller
      * @param  \App\Models\Car  $car
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request,Car $car)
+    public function show(Request $request, Car $car)
     {
-        $car = Car::findOrFail($car);
+        $findCar = Car::findOrFail($car->id);
         if ($request->ajax()){
-            return response()->json($car);
+            return response()->json($findCar);
         }
-        return view('people.form')->withCar($car);
+        return view('people.form')->withCar($findCar);
     }
 
     /**
@@ -79,11 +79,11 @@ class CarController extends Controller
      */
     public function edit(Request $request, Car $car)
     {
-        $car = Car::findOrFail($car);
+        $findCar = Car::findOrFail($car->id);
         if ($request->ajax()){
-            return response()->json($car);
+            return response()->json($findCar);
         }
-        return view('people.form')->withCar($car);
+        return view('people.form')->withCar($findCar);
     }
 
     /**
@@ -95,7 +95,7 @@ class CarController extends Controller
      */
     public function update(CarRequest $request, Car $car)
     {
-        Car::findOrFail($car)->update($request->all());
+        Car::findOrFail($car->id)->update($request->all());
         if ($request->ajax()){
             return response()->json('Car updated');
         }
@@ -110,7 +110,7 @@ class CarController extends Controller
      */
     public function destroy(Request $request, Car $car)
     {
-        Car::findOrFail($car)->delete();
+        Car::find($car->id)->delete();
         if ($request->ajax()){
             return response()->json('Car deleted');
         }
