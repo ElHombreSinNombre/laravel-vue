@@ -4,13 +4,16 @@
             <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-md rounded hover:shadow-2xl transition duration-500 ease-in-out
       text-black">
                 <div class="rounded-t px-4 py-3  bg-gray-200">
-                    <div class="flex flex-wrap items-center">
-                        <a href="/choose"
-                            class="cursor-pointer fas fa-arrow-circle-left opacity-50 hover:opacity-100 transition duration-500 ease-in-out"></a>
+                    <div class="grid grid-cols-3 gap-4">
                         <div class="relative w-full px-4 max-w-full flex-grow flex-1 ">
-                            <h3 class="font-semibold text-lg ">
-                                Cars</h3>
+                            <a href="/choose"
+                                class="cursor-pointer fas fa-arrow-circle-left opacity-50 hover:opacity-100 transition duration-500 ease-in-out"></a>
+                            <b class="font-semibold text-lg ">
+                                Cars</b>
                         </div>
+                        <input type="text" v-model="search"
+                            class="w-2/3 shadow appearance-none border rounded py-1 px-3 text-gray-700 m-auto"
+                            placeholder="Filter..." />
                         <a href="/cars/create"
                             class="text-right cursor-pointer fas fa-plus-circle opacity-50 text-black hover:text-green-600 transition duration-500 ease-in-out hover:opacity-100"></a>
                     </div>
@@ -38,7 +41,7 @@
 
                         </thead>
                         <tbody is="transition-group" name="fade">
-                            <tr v-for="(car, index) in list" :key="car.id">
+                            <tr v-for="(car, index) in filterItems" :key="car.id">
                                 <td class="px-6 py-3 align-middle">{{car.model}}</td>
                                 <td class="px-6 py-3 align-middle">{{car.brand}}</td>
                                 <td class="px-6 py-3 align-middle">{{car.color}}</td>
@@ -59,13 +62,17 @@
 
 <script>
     export default {
+        name: 'CarsTable',
         data: function () {
             return {
-                list: []
+                list: this.cars,
+                search: ''
             }
         },
-        created: function () {
-            this.list = this.cars;
+        computed: {
+            filterItems: function () {
+                return this.filters()
+            },
         },
         props: {
             cars: {
@@ -76,7 +83,8 @@
         methods: {
             deleteCar: function (id, index) {
                 this.$swal({
-                    title: "¿Está seguro que desea eliminar el coche?",
+                    title: "Are you sure that you want delete item?",
+                    text: "People with that car will be removed",
                     icon: "question",
                     showCancelButton: true,
                     confirmButtonColor: "#f44336",
@@ -88,7 +96,7 @@
                             .then(() => {
                                 this.list.splice(index, 1);
                                 this.$swal({
-                                    title: "Elemento eliminado",
+                                    title: "Item deleted",
                                     icon: 'success',
                                     toast: true,
                                     showConfirmButton: false,
@@ -106,6 +114,9 @@
                             });
                     }
                 })
+            },
+            filters() {
+                return this.list.filter(item => item.model.match(this.search.trim()) || item.brand.match(this.search.trim()) || item.color.match(this.search.trim()) || item.license.match(this.search.trim()));   
             },
         }
     };

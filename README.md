@@ -1,55 +1,45 @@
 ## Guide
 
-Docker already has **[Node](https://nodejs.org/es/)**, **[Composer](https://getcomposer.org/)** and all necessary dependencies. If you prefer avoid it, you must install manually.
+Install **[Node](https://nodejs.org/es/)**, **[Composer](https://getcomposer.org/)** and **[Docker Compose](https://docs.docker.com/compose/install/).**
 
-- **[Vue (JS)](https://vuejs.org/)**. Frontend.
-    - Install [SweetAlert2 for Vue](https://www.npmjs.com/package/vue-sweetalert2)
-- **[Tailwind (CSS)](https://tailwindcss.com/)**. Frontend. 
+### Frontend
+- [Vue (JS)](https://vuejs.org/).
+    - [SweetAlert2 for Vue](https://www.npmjs.com/package/vue-sweetalert2).
+- [Tailwind (CSS)](https://tailwindcss.com/). 
+- [FontAwesome](https://www.npmjs.com/package/@fortawesome/fontawesome-free).
 
-    - Install [FontAwesome](https://www.npmjs.com/package/@fortawesome/fontawesome-free)
-    - To compile css (with **[PostCSS](https://postcss.org/)**) and js launch this command 
-    
-          npm run dev | npm run prod 
+    To compile css (with [PostCSS](https://postcss.org/)) and js launch this command 
 
-        - Install this **PostCSS** plugins
-            - [tailwindcss](https://tailwindcss.com/docs/guides/laravel) 
-            - autoprefixer. *npm i autoprefixer*.
-            - postcss-import. *npm i postcss-import*.
-            - precss. *npm i precss*. Includes all these plugins:
-                - postcss-extend-rule
-                - postcss-advanced-variables
-                - postcss-preset-env
-                - postcss-atroot
-                - postcss-property-lookup
-                - postcss-nested
-            - postcss-pxtorem. *npm i postcss-pxtorem*.
+      npm run dev | npm run prod 
 
-
-- **[Laravel (PHP)](https://laravel.com/)**. Backend.
+### Backend
+- [Laravel (PHP)](https://laravel.com/).
     - Create *laravelvue* database.
     - Check database connection in *.env* file.
     - Launch
 
-           php artisan migrate
-           php artisan db:seed
-    - Install [Laravel Collective](https://laravelcollective.com/docs/6.x/html).
-    - Install [Debugbar](https://github.com/barryvdh/laravel-debugbar).
+            php artisan migrate
+            php artisan db:seed
+
+### Other Tools
            
-- **[Docker](https://www.docker.com/)**.
-    - [Install Docker Compose](https://docs.docker.com/compose/install/)
+- [Docker](https://www.docker.com/).
 
     -  Launch this command
 
            cd docker
-
-    - Launch this command.
-
            docker-compose up -h
 
-- **[Postman](https://www.postman.com/)**.
+- [Postman](https://www.postman.com/).
     - Launch this command
 
-           newman run XXX
+          docker ps
+          docker exec -it "XXX" bash
+
+    - Inside the *docker* launch
+
+          newman run COLLECTION -r -e ENVIRONMENT htmlextra
+
 
 ## Other considerations
 

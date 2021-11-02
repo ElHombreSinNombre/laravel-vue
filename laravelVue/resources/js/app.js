@@ -33,8 +33,6 @@ Vue.component('cars-table-component', require('./components/cars/TableComponent.
 Vue.component('people-form-component', require('./components/people/FormComponent.vue').default);
 Vue.component('people-table-component', require('./components/people/TableComponent.vue').default);
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
