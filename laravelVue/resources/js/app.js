@@ -12,9 +12,15 @@ window.Vue = require('vue').default;
  * SweetAlert2 plugin
  */
 
+import { VTooltip } from 'v-tooltip'
+
 import VueSweetalert2 from 'vue-sweetalert2';
 
-Vue.use(VueSweetalert2);
+import VTooltipPlugin from 'v-tooltip'
+
+Vue.use(VueSweetalert2, VTooltipPlugin);
+
+Vue.directive('tooltip', VTooltip)
 
 /**
  * The following block of code may be used to automatically register your
@@ -41,7 +47,4 @@ Vue.component('people-table-component', require('./components/people/TableCompon
 
 const app = new Vue({
     el: '#app',
-    methods: {
-        goBack: function () {}
-    },
 });

@@ -1,8 +1,8 @@
 <template>
     <div class="relative py-16 bg-blueGray-50 h-screen w-screen grid place-items-center">
         <div
-            class="w-1/2 bg-white rounded shadow-2xl p-8 m-6 shadow-md rounded hover:shadow-2xl transition duration-500 ease-in-out">
-            <h1 class="block w-full text-center text-gray-800 text-2xl font-bold mb-6">Cars Form</h1>
+            class="w-1/2 bg-white rounded p-8 m-6 shadow-md rounded hover:shadow-2xl transition duration-500 ease-in-out">
+            <h1 class="block w-full text-center text-gray-800 text-2xl font-bold mb-6">{{this.person!=null ?  'Update '+ this.person.model : 'Create'}}</h1>
             <form action="/">
                 <div class="flex flex-col mb-4">
                     <label class="mb-2 font-bold text-lg text-gray-900" for="name">Name</label>
@@ -25,13 +25,13 @@
                         placeholder="DNI...">
                 </div>
                 <div class="flex flex-col mb-4">
-                    <label class="mb-2 font-bold text-lg text-gray-900" for="password">Password</label>
-                    <input class="border py-2 px-3 text-grey-800" type="password" name="password" v-model="password"
-                        placeholder="Password...">
+                    <label class="mb-2 font-bold text-lg text-gray-900" for="email">Email</label>
+                    <input class="border py-2 px-3 text-grey-800" type="email" name="email" v-model="email"
+                        placeholder="Email...">
                 </div>
-                <button
+                <button @click="this.person!=null ? update(this.person.id) : create()"
                     class="w-full bg-blue-400 hover:bg-blue-600 transition duration-500 ease-in-out text-white p-3 rounded"
-                    type="submit">Save</button>
+                    type="submit">{{this.person!=null ? 'Update' : 'Create'}}</button>
             </form>
         </div>
     </div>
@@ -40,35 +40,39 @@
 <script>
     export default {
         name: 'PeopleForm',
+              data: function () {
+                return {
+                    name:  this.person != null ? this.person.name : '',
+                    lastname:  this.person != null ? this.person.lastname : '',
+                    age:this.person != null ? this.person.age : '',
+                    dni:  this.person != null ? this.person.dni : '',
+                    email:  this.person != null ? this.person.email : ''
+                }
+            },
         props: {
-            id: {
-                type: [Number, null],
-                default: null
+            person: {
+                type: [],
+                default: ''
             },
-            name: {
-                type: String,
-                default: null
-            },
-            lastname: {
-                type: String,
-                default: null
-            },
-            age: {
-                type: Number,
-                default: null
-            },
-            dni: {
-                type: String,
-                default: null
-            },
-            password: {
-                type: String,
-                default: null
-            }
         },
         methods: {
-            store: function () {},
-            update: function (id) {}
+            store: function () {
+                axios.post("/cars/", 'XXX')
+                    .then(() => {
+                        console.log(response)
+                    }).catch((error) => {
+                        console.log(error);
+                    });
+            },
+            update: function (id) {
+                axios.patch("/cars/" + id, 'XXX')
+                    .then(() => {
+                        console.log(response)
+
+                    }).catch((error) => {
+                        console.log(error);
+                    });
+            }
         }
     }
 

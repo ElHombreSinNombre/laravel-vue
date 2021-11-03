@@ -14,7 +14,7 @@
                         <input type="text" v-model="search"
                             class="w-2/3 shadow appearance-none border rounded py-1 px-3 text-gray-700 m-auto"
                             placeholder="Filter..." />
-                        <a href="/cars/create"
+                        <a  href="/cars/create"
                             class="text-right cursor-pointer fas fa-plus-circle opacity-50 text-black hover:text-green-600 transition duration-500 ease-in-out hover:opacity-100"></a>
                     </div>
                 </div>
@@ -24,31 +24,34 @@
                             <tr>
                                 <th
                                     class="px-6 align-middle border border-solid py-3 text-xs uppercase whitespace-nowrap font-semibold text-left ">
-                                    Model</th>
+                                    Name</th>
                                 <th
                                     class="px-6 align-middle border border-solid py-3 text-xs uppercase whitespace-nowrap font-semibold text-left ">
-                                    Brand</th>
+                                    Car model</th>
                                 <th
                                     class="px-6 align-middle border border-solid py-3 text-xs uppercase whitespace-nowrap font-semibold text-left ">
-                                    Color</th>
+                                    Car brand</th>
                                 <th
                                     class="px-6 align-middle border border-solid py-3 text-xs uppercase whitespace-nowrap font-semibold text-left ">
-                                    License</th>
+                                    Car color</th>
                                 <th
+                                    class="px-6 align-middle border border-solid py-3 text-xs uppercase whitespace-nowrap font-semibold text-left ">
+                                    Car license</th>
+                                <th 
                                     class="px-6 align-middle border border-solid py-3 text-xs uppercase whitespace-nowrap font-semibold text-left ">
                                     Action</th>
                             </tr>
-
                         </thead>
                         <tbody is="transition-group" name="fade">
                             <tr v-for="(car, index) in filterItems" :key="car.id">
+                                <td class="px-6 py-3 align-middle">{{car.name}}</td>
                                 <td class="px-6 py-3 align-middle">{{car.model}}</td>
                                 <td class="px-6 py-3 align-middle">{{car.brand}}</td>
                                 <td class="px-6 py-3 align-middle">{{car.color}}</td>
                                 <td class="px-6 py-3 align-middle">{{car.license}}</td>
-                                <td class="px-6 py-3 align-middle"><i
-                                        class="cursor-pointer hover:text-blue-600 transition duration-500 ease-in-out fas fa-edit"></i>
-                                    | <i @click="deleteCar(car.id, index)"
+                                <td class="px-6 py-3 align-middle" ><a v-tooltip="'Edit'" :href="'/cars/'+ car.id +'/edit'"
+                                        class="cursor-pointer hover:text-blue-600 transition duration-500 ease-in-out fas fa-edit"></a>
+                                    | <i v-tooltip="'Delete'" @click="deleteCar(car.id, index)"
                                         class="hover:text-red-600 transition duration-500 ease-in-out cursor-pointer fas fa-trash"></i>
                                 </td>
                             </tr>
@@ -66,7 +69,7 @@
         data: function () {
             return {
                 list: this.cars,
-                search: ''
+                search: '',
             }
         },
         computed: {
@@ -88,7 +91,7 @@
                     icon: "question",
                     showCancelButton: true,
                     confirmButtonColor: "#f44336",
-                    confirmButtonText: "Sí",
+                    confirmButtonText: "Yes",
                     cancelButtonText: "No"
                 }).then((result) => {
                     if (result.value == true) {

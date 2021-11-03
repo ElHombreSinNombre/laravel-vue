@@ -1,11 +1,8 @@
 @component('mail::message')
 
-El coche ha sido de baja del sistema
+{{$model}} has been removed.
 
-@component('mail::button', ['url' => ''])
-Ir a la página
-@endcomponent
 
-Gracias,<br>
+Thanks,<br>
 {{ config('app.name') }}
 @endcomponent

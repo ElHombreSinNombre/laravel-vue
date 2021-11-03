@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\PersonController;
 use App\Http\Controllers\CarDeletedMailController;
+use App\Http\Controllers\SeedController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,9 +36,12 @@ Route::get('/choose', function () {
     return view('choose');
 })->name('choose')->middleware('auth');
 
-Route::resource('cars', CarController::class)->middleware('auth');
+Route::resource('cars', CarController::class)->except('show')->middleware('auth');
 
-Route::resource('people', PersonController::class)->middleware('auth');
+Route::resource('people', PersonController::class)->except('show')->middleware('auth');
 
-Route::get('/send', [CarDeletedMailController::class, 'email'])->name('email');
+Route::get('/send/{person}', [CarDeletedMailController::class, 'email'])->name('email')->middleware('auth');
+
+Route::get('/seed', [SeedController::class, 'seed'])->name('seed')->middleware('auth');
+
 

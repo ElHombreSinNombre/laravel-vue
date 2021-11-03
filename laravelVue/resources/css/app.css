@@ -40,19 +40,13 @@ html::-webkit-scrollbar-thumb:active {
 /* Tables */
 
 .fade-leave-active {
-    transition: all 3s;
     background-color: #f44336;
-}
-
-.fade-enter-active {
-    background-color: #4caf50;
 }
 
 .fade-leave-active,
 .fade-enter-active {
     transition: all 3s;
 }
-
 
 .fade-leave-to,
 .fade-enter {

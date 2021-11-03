@@ -14,7 +14,7 @@
                         <input type="text" v-model="search"
                             class="w-2/3 shadow appearance-none border rounded py-1 px-3 text-gray-700 m-auto"
                             placeholder="Filter..." />
-                        <a href="/people/create"
+                        <a  href="/people/create"
                             class="text-right cursor-pointer fas fa-plus-circle opacity-50 text-black hover:text-green-600 transition duration-500 ease-in-out hover:opacity-100"></a>
                     </div>
                 </div>
@@ -50,9 +50,9 @@
                                 <td class="px-6 py-3 align-middle">{{person.age}}</td>
                                 <td class="px-6 py-3 align-middle">{{person.dni}}</td>
                                 <td class="px-6 py-3 align-middle">{{person.email}}</td>
-                                <td class="px-6 py-3 align-middle"><i
-                                        class="cursor-pointer hover:text-blue-600 transition duration-500 ease-in-out fas fa-edit"></i>
-                                    | <i @click="deletePerson(person.id, index)"
+                                <td class="px-6 py-3 align-middle"><a v-tooltip="'Edit'" :href="'/people/'+ person.id +'/edit'"
+                                        class="cursor-pointer hover:text-blue-600 transition duration-500 ease-in-out fas fa-edit"></a>
+                                    | <i v-tooltip="'Delete'" @click="deletePerson(person.id, index)"
                                         class="hover:text-red-600 transition duration-500 ease-in-out cursor-pointer fas fa-trash"></i>
                                 </td>
                             </tr>
@@ -71,7 +71,7 @@
         data: function () {
             return {
                 list: this.people,
-                search: ''
+                search: '', 
             }
         },
         computed: {
@@ -92,7 +92,7 @@
                     icon: "question",
                     showCancelButton: true,
                     confirmButtonColor: "#f44336",
-                    confirmButtonText: "Sí",
+                    confirmButtonText: "Yes",
                     cancelButtonText: "No"
                 }).then((result) => {
                     if (result.value == true) {

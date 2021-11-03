@@ -14,7 +14,7 @@ class CarController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('isAdmin', ['except' => ['index', 'show']]);
+        $this->middleware('isAdmin', ['except' => 'index']);
     }
 
     /**
@@ -24,7 +24,7 @@ class CarController extends Controller
      */
     public function index(Request $request)
     {
-        $cars = Car::all();
+        $cars = Car::join('people', 'cars.id', '=', 'people.id_car')->get();
         if ($request->ajax()){
             return response()->json($cars);
         }
@@ -57,21 +57,6 @@ class CarController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Car  $car
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Request $request, Car $car)
-    {
-        $findCar = Car::findOrFail($car->id);
-        if ($request->ajax()){
-            return response()->json($findCar);
-        }
-        return view('people.form')->withCar($findCar);
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Car  $car
@@ -83,7 +68,7 @@ class CarController extends Controller
         if ($request->ajax()){
             return response()->json($findCar);
         }
-        return view('people.form')->withCar($findCar);
+        return view('cars.form')->withCar($findCar);
     }
 
     /**

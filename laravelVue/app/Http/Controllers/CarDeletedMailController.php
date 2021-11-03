@@ -4,20 +4,31 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\CarDeleted;
-//use App\Models\Person;
+
+use App\Models\Person;
 
 class CarDeletedMailController extends Controller {
-    
-    public function email() {
 
-        //Person::findOrFail($person)->delete();
-    
-        Mail::to('laravelvue@test.com')->send(new CarDeleted);
+     /**
+     * Instantiate a new PersonController instance.
+     */
+    public function __construct()
+    {
+        $this->middleware('isAdmin', ['except' => 'index']);
+    }
 
-        return response()->json([
-            'message' => 'Email has been sent.'
-        ]);
-   
+    public function email(Person $person) {
+
+        $users = Person::join('cars', 'cars.id', '=', 'people.id_car')->where('people.id_car', $person->id_car)->get();
+        if($users){
+            foreach ($users as $user) {
+                Mail::to($user->email)->send(new CarDeleted($user->model));
+                return response()->json([
+                    'message' => 'Email has been sent to ' .$user->email
+                ]);
+            }
+        }
+     
     }
 
 }

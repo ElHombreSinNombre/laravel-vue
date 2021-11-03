@@ -14,7 +14,7 @@ class PersonController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('isAdmin', ['except' => ['index', 'show']]);
+        $this->middleware('isAdmin', ['except' => 'index']);
     }
 
     /**
@@ -54,21 +54,6 @@ class PersonController extends Controller
             return response()->json('Person created');
         }
         return view('people.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Person  $person
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Request $request, Person $person)
-    {
-        $findPerson = Person::findOrFail($person->id);
-        if ($request->ajax()){
-            return response()->json($findPerson);
-        }
-        return view('people.form')->withPerson($findPerson);
     }
 
     /**
