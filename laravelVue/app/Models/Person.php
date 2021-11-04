@@ -19,6 +19,6 @@ class Person extends Model
 
     public function cars()
     {
-        return $this->hasMany(Car::class,'id_car');
+        return $this->hasOne(Car::class,'id_car');
     }
 }

@@ -5293,6 +5293,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'CarsTable',
   data: function data() {
@@ -5326,21 +5327,19 @@ __webpack_require__.r(__webpack_exports__);
         cancelButtonText: "No"
       }).then(function (result) {
         if (result.value == true) {
-          axios["delete"]("/cars/" + id).then(function () {
-            _this.list.splice(index, 1);
+          axios.get("/send/" + id).then(function () {
+            axios["delete"]("/cars/" + id).then(function () {
+              _this.list.splice(index, 1);
 
-            _this.$swal({
-              title: "Item deleted",
-              icon: 'success',
-              toast: true,
-              showConfirmButton: false,
-              position: 'top-end',
-              timerProgressBar: true,
-              timer: 5000
-            });
-
-            axios.get("/send/" + id).then(function (response) {
-              console.log(response);
+              _this.$swal({
+                title: "Item deleted",
+                icon: 'success',
+                toast: true,
+                showConfirmButton: false,
+                position: 'top-end',
+                timerProgressBar: true,
+                timer: 5000
+              });
             })["catch"](function (error) {
               console.log(error);
             });

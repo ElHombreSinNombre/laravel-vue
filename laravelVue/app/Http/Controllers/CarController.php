@@ -24,7 +24,7 @@ class CarController extends Controller
      */
     public function index(Request $request)
     {
-        $cars = Car::join('people', 'cars.id', '=', 'people.id_car')->get();
+        $cars = Car::join('people', 'cars.id', '=', 'people.id_car')->select('cars.*', 'people.name')->distinct()->get();
         if ($request->ajax()){
             return response()->json($cars);
         }
@@ -95,7 +95,7 @@ class CarController extends Controller
      */
     public function destroy(Request $request, Car $car)
     {
-        Car::find($car->id)->delete();
+        Car::findOrFail($car->id)->delete();
         if ($request->ajax()){
             return response()->json('Car deleted');
         }

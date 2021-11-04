@@ -22,7 +22,7 @@ class CreatePeopleTable extends Migration
             $table->text('dni', 7)->idNumber()->unique();
             $table->text('email', 24)->unique();
             $table->unsignedBigInteger('id_car');
-            $table->foreign('id_car')->references('id')->on('cars')->onDelete('cascade');
+            $table->foreign('id_car')->references('id')->on('cars')->unique()->onDelete('cascade');
         });
     }
 
