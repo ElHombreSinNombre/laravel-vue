@@ -72,7 +72,20 @@
                         email: this.email
                     })
                     .then(() => {
-                        axios.get('/people')
+                        this.$swal({
+                            title: "People created",
+                            icon: 'success',
+                            toast: true,
+                            showConfirmButton: false,
+                            position: 'top-end',
+                            timerProgressBar: true,
+                            timer: 5000
+                        })
+                        this.name = '',
+                        this.lastname = '',
+                        this.age = '',
+                        this.dni = ''
+                        this.email = ''
                     }).catch((error) => {
                         this.errors = error.data.errors;
                     });
@@ -85,8 +98,8 @@
                         dni: this.dni,
                         email: this.email
                     })
-                    .then((response) => {
-                        console.log(response)
+                    .then(() => {
+                        axios.get('/people')
 
                     }).catch((error) => {
                         this.errors = error.data.errors;

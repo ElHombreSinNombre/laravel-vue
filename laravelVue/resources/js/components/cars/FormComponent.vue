@@ -66,7 +66,19 @@
                         license: this.license,
                     })
                     .then(() => {
-                        axios.get('/cars')
+                        this.$swal({
+                            title: "Car created",
+                            icon: 'success',
+                            toast: true,
+                            showConfirmButton: false,
+                            position: 'top-end',
+                            timerProgressBar: true,
+                            timer: 5000
+                        })
+                        this.model = '',
+                        this.brand = '',
+                        this.color= '',
+                        this.license= ''
                     }).catch((error) => {
                         this.errors = error.data.errors;
                     });
@@ -78,9 +90,8 @@
                         color: this.color,
                         license: this.license,
                     })
-                    .then((response) => {
-                        console.log(response)
-
+                    .then(() => {
+                        axios.get('/cars')
                     }).catch((error) => {
                         this.errors = error.data.errors;
                     });
