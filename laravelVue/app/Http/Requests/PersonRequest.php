@@ -26,20 +26,22 @@ class PersonRequest extends FormRequest
         return [
             'name' => 'max:12',
             'lastname' => 'max:12',
-            'age' => 'nullable|max:2',
+            'age' => 'max:2',
             'dni' => 'max:7',
-            'email' => 'required|unique:email|max:7',
+            'email' => 'required|unique:email|max:12',
         ];
     }
 
     public function messages()
     {
         return [
-            'name.name' => 'El nombre debe tener menos de 12 caracteres',
-            'lastname.lastname' => 'El apellido debe tener menos de 12 caracteres',
-            'age.age' => 'La edad debe tener menos de 2 caracteres',
-            'dni.dni' => 'El DNI debe tener menos de 7 caracteres',
-            'email.required' => 'El email es obligatorio, debe tener menos de 7 caracteres y no se puede repetir',
+            'name.name.max' => 'Your name cannot be more than 12 characters',
+            'lastname.max' => 'Your lastname cannot be more than 12 characters',
+            'age.age.max' => 'Your age cannot be more than 2 characters',
+            'dni.dni.max' => 'Your DNI cannot be more than 7 characters',
+            'email.required' => 'Your email is required',
+            'email.unique' => 'Your email must be unique',
+            'email.max' => 'Your email cannot be more than 12 characters',
         ];
     }
 }

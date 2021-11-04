@@ -26,7 +26,7 @@ class CarRequest extends FormRequest
         return [
             'model' => 'max:12',
             'brand' => 'max:12',
-            'color' => 'max:12',
+            'color' => 'max:7',
             'license' => 'required|unique:license|max:7',
         ];
     }
@@ -34,11 +34,12 @@ class CarRequest extends FormRequest
     public function messages()
     {
         return [
-            'title.title' => 'El modelo debe tener menos de 12 caracteres',
-            'brand.brand' => 'La marca debe tener menos de 12 caracteres',
-            'color.color' => 'El color debe tener menos de 12 caracteres',
-            'license.required' => 'La matricula es obligatoria, debe tener menos de 7 caracteres y no se puede repetir',
-
+            'model.max' => 'The model cannot be more than 12 characters',
+            'brand.max' => 'The brand cannot be more than 12 characterss',
+            'color.max' => 'The color cannot be more than 7 characterss',
+            'license.required' => 'The license is required',
+            'license.unique' => 'The license must be unique',
+            'license.max' => 'The license cannot be more than 7 characters',
         ];
     }
 }
