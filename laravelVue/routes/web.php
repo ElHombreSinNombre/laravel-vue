@@ -32,16 +32,23 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 ///////////
 
-Route::get('/choose', function () {
-    return view('choose');
-})->name('choose')->middleware('auth');
+Route::group(['middleware' => 'auth'], function () {
 
-Route::resource('cars', CarController::class)->except('show')->middleware('auth');
+    Route::get('/choose', function () {
+        return view('choose');
+    })->name('choose');
 
-Route::resource('people', PersonController::class)->except('show')->middleware('auth');
+    Route::resource('cars', CarController::class)->except('show');
 
-Route::get('/send/{person}', [CarDeletedMailController::class, 'email'])->name('email')->middleware('auth');
+    Route::resource('people', PersonController::class)->except('show');
+    
+    Route::get('/send/{person}', [CarDeletedMailController::class, 'email'])->name('email');
+    
+    Route::get('/seed', [SeedController::class, 'seed'])->name('seed');
 
-Route::get('/seed', [SeedController::class, 'seed'])->name('seed')->middleware('auth');
+});
+
+
+
 
 

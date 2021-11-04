@@ -2,6 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Global styles */
+td {
+    @apply px-6 py-3 align-middle;
+}
+
+.action {
+    @apply transition duration-500 ease-in-out cursor-pointer;
+}
+
+th {
+    @apply px-6 align-middle border border-solid py-3 text-xs uppercase whitespace-nowrap font-semibold text-left;
+}
+
+table {
+    @apply items-center w-full border-collapse bg-gray-100;
+}
+
+.center {
+    @apply relative py-16 bg-gray-50 h-screen w-screen grid place-items-center;
+    @extend body;
+}
+
+.grid-4 {
+    @apply flex flex-col mb-4;
+}
+
+.label {
+    @apply mb-2 font-bold text-lg text-gray-900;
+}
+
+.formInput {
+    @apply border py-2 px-3 text-gray-800;
+}
+
 /* Background */
 
 body {
@@ -56,4 +90,29 @@ html::-webkit-scrollbar-thumb:active {
 /* Sweetalert2 */
 .swal2-popup {
     border: 1px solid black;
+}
+
+/* Fav icon */
+
+.button{
+    @apply border-2 border-black invisible m-2 leading-6 rounded-full shadow-md w-12 h-12 opacity-0 relative no-underline block text-black hover:scale-105 bg-white transition opacity-20 duration-500 ease-in-out transition transform duration-100 ease-in-out;
+}
+
+.buttons {
+    bottom: 120%;
+    @apply absolute text-center w-full;
+}
+
+.actions a i {
+    transform: translate(-50%, -50%);
+}
+
+.toggle:not(:checked)~.buttons a {
+    transition: ease-in-out 0.75s;
+}
+
+.toggle:checked~.buttons a {
+    opacity: 1;
+    visibility: visible;
+    transition: ease-in-out 0.75s;
 }

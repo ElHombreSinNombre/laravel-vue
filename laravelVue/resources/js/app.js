@@ -12,15 +12,9 @@ window.Vue = require('vue').default;
  * SweetAlert2 plugin
  */
 
-import { VTooltip } from 'v-tooltip'
-
 import VueSweetalert2 from 'vue-sweetalert2';
 
-import VTooltipPlugin from 'v-tooltip'
-
-Vue.use(VueSweetalert2, VTooltipPlugin);
-
-Vue.directive('tooltip', VTooltip)
+Vue.use(VueSweetalert2);
 
 /**
  * The following block of code may be used to automatically register your

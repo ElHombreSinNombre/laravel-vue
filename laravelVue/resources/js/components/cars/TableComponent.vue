@@ -1,20 +1,18 @@
 <template>
-    <div class="relative py-16 bg-blueGray-50 h-screen w-screen grid place-items-center">
+    <div class="center">
         <div class="w-full mb-12 px-4">
             <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-md rounded hover:shadow-2xl transition duration-500 ease-in-out
       text-black">
                 <div class="rounded-t px-4 py-3  bg-gray-200">
                     <div class="grid grid-cols-3 gap-4">
                         <div class="relative w-full px-4 max-w-full flex-grow flex-1 ">
-                            <a href="/choose"
-                                class="cursor-pointer fas fa-arrow-circle-left opacity-50 hover:opacity-100 transition duration-500 ease-in-out"></a>
                             <b class="font-semibold text-lg ">
                                 Cars</b>
                         </div>
                         <input type="text" v-model="search"
                             class="w-2/3 shadow appearance-none border rounded py-1 px-3 text-gray-700 m-auto"
                             placeholder="Filter..." />
-                        <a href="/cars/create"
+                        <a title="New car" href="/cars/create"
                             class="text-right cursor-pointer fas fa-plus-circle opacity-50 text-black hover:text-green-600 transition duration-500 ease-in-out hover:opacity-100"></a>
                     </div>
                 </div>
@@ -22,38 +20,25 @@
                     <table class="items-center w-full border-collapse  bg-gray-100">
                         <thead>
                             <tr>
-                                <th
-                                    class="px-6 align-middle border border-solid py-3 text-xs uppercase whitespace-nowrap font-semibold text-left ">
-                                    Name</th>
-                                <th
-                                    class="px-6 align-middle border border-solid py-3 text-xs uppercase whitespace-nowrap font-semibold text-left ">
-                                    Car model</th>
-                                <th
-                                    class="px-6 align-middle border border-solid py-3 text-xs uppercase whitespace-nowrap font-semibold text-left ">
-                                    Car brand</th>
-                                <th
-                                    class="px-6 align-middle border border-solid py-3 text-xs uppercase whitespace-nowrap font-semibold text-left ">
-                                    Car color</th>
-                                <th
-                                    class="px-6 align-middle border border-solid py-3 text-xs uppercase whitespace-nowrap font-semibold text-left ">
-                                    Car license</th>
-                                <th
-                                    class="px-6 align-middle border border-solid py-3 text-xs uppercase whitespace-nowrap font-semibold text-left ">
-                                    Action</th>
+                                <th>Name</th>
+                                <th>Car model</th>
+                                <th>Car brand</th>
+                                <th>Car color</th>
+                                <th>Car license</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody is="transition-group" name="fade">
                             <tr v-for="(car, index) in filterItems" :key="car.id">
-                                <td class="px-6 py-3 align-middle">{{car.name}}</td>
-                                <td class="px-6 py-3 align-middle">{{car.model}}</td>
-                                <td class="px-6 py-3 align-middle">{{car.brand}}</td>
-                                <td class="px-6 py-3 align-middle">{{car.color}}</td>
-                                <td class="px-6 py-3 align-middle">{{car.license}}</td>
-                                <td class="px-6 py-3 align-middle"><a v-tooltip="'Edit'"
-                                        :href="'/cars/'+ car.id +'/edit'"
-                                        class="cursor-pointer hover:text-blue-600 transition duration-500 ease-in-out fas fa-edit"></a>
-                                    | <i v-tooltip="'Delete'" @click="deleteCar(car.id, index)"
-                                        class="hover:text-red-600 transition duration-500 ease-in-out cursor-pointer fas fa-trash"></i>
+                                <td>{{car.name}}</td>
+                                <td>{{car.model}}</td>
+                                <td>{{car.brand}}</td>
+                                <td>{{car.color}}</td>
+                                <td>{{car.license}}</td>
+                                <td><a title="Edit" :href="'/cars/'+ car.id +'/edit'"
+                                        class="hover:text-blue-600 action fas fa-edit"></a>
+                                    | <i title="Delete" @click="deleteCar(car.id, index)"
+                                        class="hover:text-red-600 action fas fa-trash"></i>
                                 </td>
                             </tr>
                         </tbody>
@@ -109,11 +94,11 @@
                                         timerProgressBar: true,
                                         timer: 5000
                                     })
-                                }).catch((error) => {
-                                    console.log(error);
+                                }).catch((e) => {
+                                    console.log(e);
                                 })
-                        }).catch((error) => {
-                            console.log(error);
+                        }).catch((e) => {
+                            console.log(e);
                         });
                     }
                 })

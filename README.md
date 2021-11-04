@@ -5,7 +5,6 @@ Install **[Node](https://nodejs.org/es/)**, **[Composer](https://getcomposer.org
 ### Frontend
 - [Vue (JS)](https://vuejs.org/).
     - [SweetAlert2 for Vue](https://www.npmjs.com/package/vue-sweetalert2).
-    - [Vue Tooltip](https://v-tooltip.netlify.app/).
 - [Tailwind (CSS)](https://tailwindcss.com/). 
 - [FontAwesome](https://www.npmjs.com/package/@fortawesome/fontawesome-free).
 
