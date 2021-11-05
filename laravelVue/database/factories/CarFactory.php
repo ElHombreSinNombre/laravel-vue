@@ -23,6 +23,7 @@ class CarFactory extends Factory
             'brand' => $this->faker->lastName(12),
             'color' => $this->faker->hexColor(),
             'license' => $this->faker->unique()->bothify('#######'),
+            'image' => 'https://source.unsplash.com/random?car/800x600'
         ];
     }
 }
