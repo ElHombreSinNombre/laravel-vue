@@ -24,6 +24,7 @@ class CarFactory extends Factory
             'color' => $this->faker->hexColor(),
             'license' => $this->faker->unique()->bothify('#######'),
             'image' => 'https://source.unsplash.com/random?car/800x600'
+            //'image' => 'https://source.unsplash.com/random?car='+ trim($v['brand'])+'&'+trim($v['model'])+'/800x600'
         ];
     }
 }
