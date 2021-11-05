@@ -27,11 +27,11 @@ class UserSeeder extends Seeder
             'updated_at' => now(),
             'password' => bcrypt('test'), 
             'role' => 'admin',
+            'language' => 'es',
             'remember_token' => Str::random(10),
         ]);
 
         //Default reviewer to test
-
         DB::table('users')->insert([
             'name' => 'Reviewer',
             'email' => 'laravelvuereviewer@test.com',
@@ -40,6 +40,7 @@ class UserSeeder extends Seeder
             'updated_at' => now(),
             'password' => bcrypt('test'), 
             'role' => 'reviewer',
+            'language' => 'en',
             'remember_token' => Str::random(10),
         ]);
     

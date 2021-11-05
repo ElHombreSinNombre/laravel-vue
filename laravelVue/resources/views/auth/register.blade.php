@@ -53,10 +53,23 @@
             <div class="mb-6 ">
                 <label for="role" class="block text-gray-700 text-sm font-normal mb-2">{{ __('Role') }}</label>
                 <div class="relative">
-                    <select id="role" type="role" name="role" required
+                    <select id="role" name="role" required
                         class="block shadow appearance-none border rounded w-full py-3 px-4 pr-8 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline">
                         <option value="admin">Admin</option>
                         <option value="reviewer">Reviewer</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <i class="mr-3 fas fa-chevron-down"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-6 ">
+                <label for="language" class="block text-gray-700 text-sm font-normal mb-2">{{ __('Language') }}</label>
+                <div class="relative">
+                    <select id="language" name="language" required
+                        class="block shadow appearance-none border rounded w-full py-3 px-4 pr-8 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline">
+                        <option value="es">Español</option>
+                        <option value="en">English</option>
                     </select>
                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                         <i class="mr-3 fas fa-chevron-down"></i>
