@@ -46,9 +46,22 @@
             <div class="mb-6 ">
                 <label for="password"
                     class="block text-gray-700 text-sm font-normal mb-2">{{ __('Confirm Password') }}</label>
-                <input id="password-confir" type="password"
+                <input id="password-confirm" type="password"
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                     name="password_confirmation" required autocomplete="new-password">
+            </div>
+            <div class="mb-6 ">
+                <label for="role" class="block text-gray-700 text-sm font-normal mb-2">{{ __('Role') }}</label>
+                <div class="relative">
+                    <select id="role" type="role" name="role" required
+                        class="block shadow appearance-none border rounded w-full py-3 px-4 pr-8 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline">
+                        <option value="admin">Admin</option>
+                        <option value="reviewer">Reviewer</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <i class="mr-3 fas fa-chevron-down"></i>
+                    </div>
+                </div>
             </div>
             <div class="flex items-center justify-between">
                 <button type="submit"
