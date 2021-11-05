@@ -1,5 +1,5 @@
 <template>
-    <div class="relative py-16 bg-blueGray-50 h-screen w-screen grid place-items-center">
+    <div class="center">
         <div
             class="w-1/2 bg-white rounded p-8 m-6 shadow-md rounded hover:shadow-2xl transition duration-500 ease-in-out">
             <h1 class="block w-full text-center text-gray-800 text-2xl font-bold mb-6">
