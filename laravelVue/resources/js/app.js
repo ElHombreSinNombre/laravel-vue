@@ -14,7 +14,12 @@ window.Vue = require('vue').default;
 
 import VueSweetalert2 from 'vue-sweetalert2';
 
+import vSelect from 'vue-select'
+
 Vue.use(VueSweetalert2);
+
+Vue.component('v-select', vSelect)
+
 
 /**
  * The following block of code may be used to automatically register your

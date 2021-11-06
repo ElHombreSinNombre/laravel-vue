@@ -4,6 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+use Auth;
+
 class PersonRequest extends FormRequest
 {
     /**
@@ -13,7 +15,7 @@ class PersonRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return Auth::check();
     }
 
     /**
@@ -24,11 +26,12 @@ class PersonRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'max:12',
+            'name' => 'max:50',
             'lastname' => 'max:12',
             'age' => 'max:2',
-            'dni' => 'max:7',
-            'email' => 'required|unique:email|max:12',
+            'dni' => 'required|max:9',
+            'email' => 'required|max:24',
+            'id_car' => 'required',
         ];
     }
 
@@ -39,9 +42,10 @@ class PersonRequest extends FormRequest
             'lastname.max' => 'Your lastname cannot be more than 12 characters',
             'age.age.max' => 'Your age cannot be more than 2 characters',
             'dni.dni.max' => 'Your DNI cannot be more than 7 characters',
+            'dni.dni.required' => 'Your DNI is required',
             'email.required' => 'Your email is required',
-            'email.unique' => 'Your email must be unique',
             'email.max' => 'Your email cannot be more than 12 characters',
+            'id_car.required' => 'Person must to have a car',
         ];
     }
 }

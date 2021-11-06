@@ -31,6 +31,7 @@
         "postcss-import": "^14.0.2",
         "postcss-pxtorem": "^6.0.0",
         "precss": "^4.0.0",
+        "vue-select": "^3.16.0",
         "vue-sweetalert2": "^5.0.2"
     }
 }

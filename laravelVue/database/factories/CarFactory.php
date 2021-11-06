@@ -18,11 +18,16 @@ class CarFactory extends Factory
      */
     public function definition()
     {
+
+        $this->faker->addProvider(new \Faker\Provider\Fakecar($this->faker));
+        $car = $this->faker->vehicleArray();
+
         return [
-            'model' => $this->faker->name(12),
-            'brand' => $this->faker->lastName(12),
+            'model' => $car['model'],
+            'brand' => $car['brand'],
             'color' => $this->faker->hexColor(),
-            'license' => $this->faker->unique()->bothify('#######'),
+            'license' => $this->faker->vehicleRegistration(),
+            'image' => 'https://source.unsplash.com/random?car='.trim($car['brand']).'&'.trim($car['model']).'/800x600'
         ];
     }
 }

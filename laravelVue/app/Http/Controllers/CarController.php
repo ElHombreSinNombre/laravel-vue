@@ -6,6 +6,8 @@ use App\Models\Car;
 use Illuminate\Http\Request;
 use App\Http\Requests\CarRequest;
 
+use Illuminate\Database\QueryException;
+
 class CarController extends Controller
 {
 
@@ -14,7 +16,7 @@ class CarController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('isAdmin', ['except' => 'index']);
+       $this->middleware('isAdmin', ['except' => 'index']);
     }
 
     /**
@@ -24,7 +26,7 @@ class CarController extends Controller
      */
     public function index(Request $request)
     {
-        $cars = Car::join('people', 'cars.id', '=', 'people.id_car')->select('cars.*', 'people.name')->distinct()->get();
+        $cars = Car::join('people', 'cars.id', '=', 'people.id_car')->select('cars.*', 'people.name','people.dni')->get();
         if ($request->ajax()){
             return response()->json($cars);
         }
@@ -49,11 +51,16 @@ class CarController extends Controller
      */
     public function store(CarRequest $request)
     {
-        Car::create($request->all());
-        if ($request->ajax()){
-            return response()->json('Car created');
+        try {
+            Car::create($request->all());
+            if ($request->ajax()){
+                return response()->json('Car created');
+            }
+        } catch (QueryException $e) {
+            if(str_contains($e->getMessage(),'Integrity constraint violation')==true){
+                return response()->json(['message' => 'Duplicate unique values'], 500);
+            }
         }
-        return view('cars.index');
     }
 
     /**
@@ -80,11 +87,17 @@ class CarController extends Controller
      */
     public function update(CarRequest $request, Car $car)
     {
-        Car::findOrFail($car->id)->update($request->all());
-        if ($request->ajax()){
-            return response()->json('Car updated');
+        try {
+            Car::findOrFail($car->id)->update($request->all());
+            if ($request->ajax()){
+                return response()->json('Car updated');
+            }
+            $cars = Car::join('people', 'cars.id', '=', 'people.id_car')->select('cars.*', 'people.name','people.dni')->get();
+        } catch (QueryException $e) {
+            if(str_contains($e->getMessage(),'Integrity constraint violation')==true){
+                return response()->json(['message' => 'Duplicate unique values'], 500);
+            }
         }
-        return view('cars.index');
     }
 
     /**

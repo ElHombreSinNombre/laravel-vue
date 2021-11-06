@@ -2,5 +2,5 @@
 @section('title') | Car form @endsection
 
 <section id="app">
-    <cars-form-component :car="{{$car ?? 'null'}}"></cars-form-component>
+    <cars-form-component :car="{{isset($car) ? $car->toJson():'null'}}"></cars-form-component>
 </section>

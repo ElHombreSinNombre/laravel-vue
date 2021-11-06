@@ -2,5 +2,5 @@
 @section('title') | Person form @endsection
 
 <section id="app">
-    <people-form-component :person="{{$person ?? 'null'}}"></people-form-component>
+    <people-form-component :cars="{{$cars}}" :person="{{isset($person) ? $person->toJson():'null'}}"></people-form-component>
 </section>

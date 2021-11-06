@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 
 use Illuminate\Support\Str;
-use DB;
 
 use App\Models\User;
 
@@ -19,7 +18,7 @@ class UserSeeder extends Seeder
     public function run()
     {
         //Default admin to test
-        DB::table('users')->insert([
+        User::insert([
             'name' => 'Admin',
             'email' => 'laravelvueadmin@test.com',
             'email_verified_at' => now(),
@@ -27,12 +26,12 @@ class UserSeeder extends Seeder
             'updated_at' => now(),
             'password' => bcrypt('test'), 
             'role' => 'admin',
+            'language' => 'es',
             'remember_token' => Str::random(10),
         ]);
 
         //Default reviewer to test
-
-        DB::table('users')->insert([
+        User::insert([
             'name' => 'Reviewer',
             'email' => 'laravelvuereviewer@test.com',
             'email_verified_at' => now(),
@@ -40,6 +39,7 @@ class UserSeeder extends Seeder
             'updated_at' => now(),
             'password' => bcrypt('test'), 
             'role' => 'reviewer',
+            'language' => 'en',
             'remember_token' => Str::random(10),
         ]);
     

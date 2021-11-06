@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Person;
+use App\Models\Car;
 use Illuminate\Http\Request;
 use App\Http\Requests\PersonRequest;
+
+use Illuminate\Database\QueryException;
 
 class PersonController extends Controller
 {
@@ -24,7 +27,7 @@ class PersonController extends Controller
      */
     public function index(Request $request)
     {
-        $people = Person::all();
+        $people = Person::join('cars', 'people.id_car', '=', 'cars.id')->select('people.*', 'cars.license')->get();
         if ($request->ajax()){
             return response()->json($people);
         }
@@ -38,7 +41,8 @@ class PersonController extends Controller
      */
     public function create()
     {
-        return view('people.form');
+        $cars = Car::select('id', 'model')->get();
+        return view('people.form')->withCars($cars);
     }
 
     /**
@@ -49,11 +53,16 @@ class PersonController extends Controller
      */
     public function store(PersonRequest $request)
     {
-        Person::create($request->all());
-        if ($request->ajax()){
-            return response()->json('Person created');
+        try {
+            Person::create($request->all());
+            if ($request->ajax()){
+                return response()->json('Person created');
+            }
+        } catch (QueryException $e) {
+            if(str_contains($e->getMessage(),'Integrity constraint violation')==true){
+                return response()->json(['message' => 'Duplicate unique values'], 500);
+            }
         }
-        return view('people.index');
     }
 
     /**
@@ -64,11 +73,12 @@ class PersonController extends Controller
      */
     public function edit(Request $request, Person $person)
     {
+        $cars = Car::select('id', 'model')->get();
         $findPerson = Person::findOrFail($person->id);
         if ($request->ajax()){
             return response()->json($findPerson);
         }
-        return view('people.form')->withPerson($findPerson);
+        return view('people.form')->withPerson($findPerson)->withCars($cars);
     }
 
     /**
@@ -80,11 +90,16 @@ class PersonController extends Controller
      */
     public function update(PersonRequest $request, Person $person)
     {
-        Person::findOrFail($person->id)->update($request->all());
-        if ($request->ajax()){
-            return response()->json('Car updated');
+        try {
+            Person::findOrFail($person->id)->update($request->all());
+            if ($request->ajax()){
+                return response()->json('Car updated');
+            }
+        } catch (QueryException $e) {
+            if(str_contains($e->getMessage(),'Integrity constraint violation')==true){
+                return response()->json(['message' => 'Duplicate unique values'], 500);
+            }
         }
-        return view('people.index');
     }
 
     /**

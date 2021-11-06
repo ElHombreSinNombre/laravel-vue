@@ -3,4 +3,13 @@
 @import '~@fortawesome/fontawesome-free/scss/solid';
 @import '~sweetalert2/src/variables';
 @import '~sweetalert2/src/sweetalert2';
-@import '~v-tooltip/dist/v-tooltip.css';
+@import "~vue-select/src/scss/vue-select.scss";
+
+/* Special img in tables */
+
+table{
+    img{
+        height: 3em !important;
+        width: 5em !important;
+    }
+}

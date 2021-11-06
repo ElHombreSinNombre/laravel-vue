@@ -1,9 +1,9 @@
 <template>
-    <div class="relative py-16 bg-blueGray-50 h-screen w-screen grid place-items-center">
+    <div class="center">
         <div
             class="w-1/2 bg-white rounded p-8 m-6 shadow-md rounded hover:shadow-2xl transition duration-500 ease-in-out">
             <h1 class="block w-full text-center text-gray-800 text-2xl font-bold mb-6">
-                {{this.person!=null ?  'Update '+ this.person.model : 'Create'}}</h1>
+                {{editing == true ? 'Update' :'Create'}}</h1>
             <div v-if="errors" class="bg-red-500 text-white py-2 px-4 pr-0 rounded font-bold mb-4 shadow-lg">
                 <div v-for="(v, k) in errors" :key="k">
                     <p v-for="error in v" :key="error" class="text-sm">
@@ -11,34 +11,40 @@
                     </p>
                 </div>
             </div>
-            <div class="flex flex-col mb-4">
-                <label class="mb-2 font-bold text-lg text-gray-900" for="name">Name</label>
-                <input class="border py-2 px-3 text-grey-800" type="text" name="name" v-model="name" maxlength="12"
+            <div class="grid-4">
+                <label class="label" for="name">Name</label>
+                <input class="formInput" type="text" name="name" v-model="form.name" maxlength="50"
                     placeholder="Name...">
             </div>
-            <div class="flex flex-col mb-4">
-                <label class="mb-2 font-bold text-lg text-gray-900" for="last_name">Last Name</label>
-                <input class="border py-2 px-3 text-grey-800" type="text" name="lastname" v-model="lastname"
-                    maxlength="12" placeholder="Lastname...">
+            <div class="grid-4">
+                <label class="label" for="last_name">Last Name</label>
+                <input class="formInput" type="text" name="lastname" v-model="form.lastname" maxlength="12"
+                    placeholder="Lastname...">
             </div>
-            <div class="flex flex-col mb-4">
-                <label class="mb-2 font-bold text-lg text-gray-900" for="age">Age</label>
-                <input class="border py-2 px-3 text-grey-800" type="number" min="18" max="99" name="age" v-model="age"
+            <div class="grid-4">
+                <label class="label" for="age">Age</label>
+                <input class="formInput" type="number" min="18" max="99" name="age" v-model="form.age"
                     placeholder="Age...">
             </div>
-            <div class="flex flex-col mb-4">
-                <label class="mb-2 font-bold text-lg text-gray-900" for="dni">DNI</label>
-                <input class="border py-2 px-3 text-grey-800" type="text" name="dni" v-model="dni" maxlength="7"
-                    placeholder="DNI...">
+            <div class="grid-4">
+                <label class="label" for="dni">DNI</label>
+                <input class="formInput" type="text" name="dni" v-model="form.dni" maxlength="9" placeholder="DNI...">
             </div>
-            <div class="flex flex-col mb-4">
-                <label class="mb-2 font-bold text-lg text-gray-900" for="email">Email</label>
-                <input class="border py-2 px-3 text-grey-800" type="email" name="email" v-model="email" maxlength="12"
+            <div class="grid-4">
+                <label class="label" for="email">Email</label>
+                <input class="formInput" type="email" name="email" v-model="form.email" maxlength="24"
                     placeholder="Email...">
             </div>
-            <button @click="this.person!=null ? update(this.person.id) : create()"
+            <div class="grid-4">
+                <label class="label" for="car">Cars</label>
+                <v-select name="car" placeholder="Select car..." :options="options" v-model="form.id_car" label="model"
+                    :reduce="model => model.id"></v-select>
+            </div>
+            <button @click="editing== true ?  update(person.id) : store()"
                 class="w-full bg-blue-400 hover:bg-blue-600 transition duration-500 ease-in-out text-white p-3 rounded"
-                type="submit">{{this.person!=null ? 'Update' : 'Create'}}</button>
+                type="submit">
+                {{editing == true ? 'Update' :'Create'}}
+            </button>
         </div>
     </div>
 </template>
@@ -46,63 +52,110 @@
 <script>
     export default {
         name: 'PeopleForm',
+        props: ['person', 'cars'],
         data: function () {
             return {
-                name: this.person != null ? this.person.name : '',
-                lastname: this.person != null ? this.person.lastname : '',
-                age: this.person != null ? this.person.age : '',
-                dni: this.person != null ? this.person.dni : '',
-                email: this.person != null ? this.person.email : '',
-                errors: null
+                form: {
+                    name: '',
+                    lastname: '',
+                    age: '',
+                    dni: '',
+                    email: '',
+                    id_car: '',
+                },
+                editing: false,
+                errors: null,
+                options: []
             }
         },
-        props: {
-            person: {
-                type: [],
-                default: ''
-            },
+        mounted() {
+            if (this.person) {
+                this.form = this.person
+                this.editing = true
+            }
+            if (this.options) {
+                this.options = this.cars
+            }
         },
         methods: {
             store: function () {
-                axios.post("/cars/", {
-                        name: this.name,
-                        lastname: this.lastname,
-                        age: this.age,
-                        dni: this.dni,
-                        email: this.email
-                    })
+                axios.post("/people", this.form)
                     .then(() => {
                         this.$swal({
-                            title: "People created",
+                            title: "Person created",
                             icon: 'success',
                             toast: true,
                             showConfirmButton: false,
                             position: 'top-end',
                             timerProgressBar: true,
-                            timer: 5000
+                            timer: 5000,
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', this.$swal.stopTimer)
+                                toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                            }
                         })
-                        this.name = '',
-                        this.lastname = '',
-                        this.age = '',
-                        this.dni = ''
-                        this.email = ''
-                    }).catch((error) => {
-                        this.errors = error.data.errors;
+                    }).catch((e) => {
+                        console.log(e);
+                        if (e.response.status == 500) {
+                            if (e.response.data.message == "Duplicate unique values") {
+                                this.$swal({
+                                    title: "Email or DNI already exist",
+                                    icon: 'error',
+                                    toast: true,
+                                    showConfirmButton: false,
+                                    position: 'top-end',
+                                    timerProgressBar: true,
+                                    timer: 5000,
+                                    didOpen: (toast) => {
+                                        toast.addEventListener('mouseenter', this.$swal.stopTimer)
+                                        toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                                    }
+                                }).then(() => {
+                                    window.location.href = "/people";
+                                })
+                            }
+                        }
+                        this.errors = e.response.data.errors;
                     });
             },
             update: function (id) {
-                axios.patch("/cars/" + id, {
-                        name: this.name,
-                        lastname: this.lastname,
-                        age: this.age,
-                        dni: this.dni,
-                        email: this.email
-                    })
+                axios.patch("/people/" + id, this.form)
                     .then(() => {
-                        axios.get('/people')
-
-                    }).catch((error) => {
-                        this.errors = error.data.errors;
+                        this.$swal({
+                            title: "Person updated",
+                            icon: 'success',
+                            toast: true,
+                            showConfirmButton: false,
+                            position: 'top-end',
+                            timerProgressBar: true,
+                            timer: 5000,
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', this.$swal.stopTimer)
+                                toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                            }
+                        })
+                    }).catch((e) => {
+                        console.log(e);
+                        if (e.response.status == 500) {
+                            if (e.response.data.message == "Duplicate unique values") {
+                                this.$swal({
+                                    title: "Email or DNI already exist",
+                                    icon: 'error',
+                                    toast: true,
+                                    showConfirmButton: false,
+                                    position: 'top-end',
+                                    timerProgressBar: true,
+                                    timer: 5000,
+                                    didOpen: (toast) => {
+                                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                    }
+                                }).then(() => {
+                                    window.location.href = "/people";
+                                })
+                            }
+                        }
+                        this.errors = e.response.data.errors;
                     });
             }
         }

@@ -20,6 +20,7 @@
                     <table class="items-center w-full border-collapse  bg-gray-100">
                         <thead>
                             <tr>
+                                <th>Car license</th>
                                 <th>Name</th>
                                 <th>Lastname</th>
                                 <th>Age</th>
@@ -30,15 +31,16 @@
 
                         </thead>
                         <tbody is="transition-group" name="fade">
-                            <tr v-for="(person, index) in filterItems" :key="person.id">
-                                <td>{{person.name}}</td>
-                                <td>{{person.lastname}}</td>
-                                <td>{{person.age}}</td>
-                                <td>{{person.dni}}</td>
-                                <td>{{person.email}}</td>
+                            <tr v-for="(person, index) in filterItems" :key="person.dni">
+                                <td>{{person.license ||'-'}}</td>
+                                <td>{{person.name || '-'}}</td>
+                                <td>{{person.lastname || '-'}}</td>
+                                <td>{{person.age || '-'}}</td>
+                                <td>{{person.dni || '-'}}</td>
+                                <td>{{person.email || '-'}}</td>
                                 <td><a title="Edit" :href="'/people/'+ person.id +'/edit'"
                                         class="hover:text-blue-600 action fas fa-edit"></a>
-                                    | <i title="Delete" @click="deletePerson(person.id, index)"
+                                    | <i title="Delete" @click="deletePerson(person, index)"
                                         class="hover:text-red-600 action fas fa-trash"></i>
                                 </td>
                             </tr>
@@ -53,11 +55,11 @@
 
 <script>
     export default {
-        name: 'CarsPeople',
+        name: 'PeopleTable',
+        props: ['people'],
         data: function () {
             return {
-                list: this.people,
-                search: '', 
+                search: '',
             }
         },
         computed: {
@@ -65,16 +67,10 @@
                 return this.filters()
             },
         },
-        props: {
-            people: {
-                type: Array,
-                default: []
-            },
-        },
         methods: {
-            deletePerson: function (id, index) {
+            deletePerson: function (person, index) {
                 this.$swal({
-                    title: "Are you sure that you want delete item",
+                    title: "Are you sure that you want delete " + person.name + "?",
                     icon: "question",
                     showCancelButton: true,
                     confirmButtonColor: "#f44336",
@@ -82,17 +78,22 @@
                     cancelButtonText: "No"
                 }).then((result) => {
                     if (result.value == true) {
-                        axios.delete("/people/" + id)
+                        axios.delete("/people/" + person.id)
                             .then(() => {
-                                this.list.splice(index, 1)
+                                this.people.splice(index, 1)
                                 this.$swal({
-                                    title: "Item deleted",
+                                    title: person.name+' deleted',
                                     icon: 'success',
                                     toast: true,
                                     showConfirmButton: false,
                                     position: 'top-end',
                                     timerProgressBar: true,
-                                    timer: 5000
+                                    timer: 5000,
+                                    didOpen: (toast) => {
+                                        toast.addEventListener('mouseenter', this.$swal.stopTimer)
+                                        toast.addEventListener('mouseleave', this.$swal
+                                            .resumeTimer)
+                                    }
                                 })
                             }).catch((e) => {
                                 console.log(e);
@@ -101,7 +102,8 @@
                 })
             },
             filters() {
-                return this.list.filter(item => item.name.match(this.search.trim()) || item.lastname.match(this.search.trim()) || item.age == this.search.trim() || item.DNI == this.search.trim() || item.email.match(this.search.trim()));
+                return this.people.filter(item => item.name?.match(this.search.trim()) || item.lastname?.match(this.search
+                        .trim()) || item.age == this.search.trim() || item.DNI == this.search.trim() || item.email?.match(this.search.trim()));
             },
         }
     };

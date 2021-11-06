@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
+use Auth;
 
 class EnsureIsAdmin
 {
@@ -19,7 +20,7 @@ class EnsureIsAdmin
     public function handle(Request $request, Closure $next)
     {
 
-        if (auth()->user()->role != 'admin') {
+        if (Auth::user()->role != 'admin') {
             return new Response(view('errors.401'));
         }
 

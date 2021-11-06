@@ -9,7 +9,7 @@ use App\Models\User;
 class Car extends Model
 {
     use HasFactory;
-
+        
     /**
      * The attributes that aren't mass assignable.
      *

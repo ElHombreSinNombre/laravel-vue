@@ -24,10 +24,10 @@ class PersonFactory extends Factory
         return [
             'name' => $this->faker->name(12),
             'lastname' => $this->faker->lastName(12),
-            'age' => $this->faker->numberBetween(0, 100),
+            'age' => $this->faker->numberBetween(18, 99),
             'email' => $this->faker->unique()->safeEmail(),
-            'dni' => $this->faker->unique()->bothify('#######'),
-            'id_car' => $this->faker->randomElement($cars),
+            'dni' => $this->faker->unique()->dni(9),
+            'id_car' => $this->faker->unique()->randomElement($cars)
         ];
     }
 }
