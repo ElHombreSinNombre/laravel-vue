@@ -1,5 +1,5 @@
 <template>
-    <div class="center">
+    <div class="center h-screen">
         <div class="w-full mb-12 px-4">
             <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-md rounded hover:shadow-2xl transition duration-500 ease-in-out
       text-black">

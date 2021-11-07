@@ -20929,7 +20929,7 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "center" }, [
+  return _c("div", { staticClass: "center h-screen" }, [
     _c("div", { staticClass: "w-full mb-12 px-4" }, [
       _c(
         "div",
@@ -21423,7 +21423,7 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "center" }, [
+  return _c("div", { staticClass: "center h-screen" }, [
     _c("div", { staticClass: "w-full mb-12 px-4" }, [
       _c(
         "div",
