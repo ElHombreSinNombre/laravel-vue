@@ -41,7 +41,8 @@ class PersonController extends Controller
      */
     public function create()
     {
-        $cars = Car::select('id', 'model')->get();
+        $cars_id= Person::pluck('id_car')->all();
+        $cars = Car::whereNotIn('id', $cars_id)->select('model','id')->get();
         return view('people.form')->withCars($cars);
     }
 
@@ -73,12 +74,15 @@ class PersonController extends Controller
      */
     public function edit(Request $request, Person $person)
     {
-        $cars = Car::select('id', 'model')->get();
         $findPerson = Person::findOrFail($person->id);
+        $car = Car::findOrFail($findPerson->id_car);
+        $cars_id= Person::pluck('id_car')->all();
+        $cars = Car::whereNotIn('id', $cars_id)->select('model','id')->get();
+        $result = $cars->merge(collect([$car]));
         if ($request->ajax()){
             return response()->json($findPerson);
         }
-        return view('people.form')->withPerson($findPerson)->withCars($cars);
+        return view('people.form')->withPerson($findPerson)->withCars($result);
     }
 
     /**

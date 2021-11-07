@@ -40,6 +40,9 @@
                 <v-select name="car" placeholder="Select car..." :options="options" v-model="form.id_car" label="model"
                     :reduce="model => model.id"></v-select>
             </div>
+            <p v-if="!options.length" class="bg-blue-500 text-white py-2 px-5 pr-0 rounded font-bold mb-4 shadow-l" >
+                <a :href="'/cars/create'">No free cars for select. Need to create new one. </a>
+            </p>
             <button @click="editing== true ?  update(person.id) : store()"
                 class="w-full bg-blue-400 hover:bg-blue-600 transition duration-500 ease-in-out text-white p-3 rounded"
                 type="submit">

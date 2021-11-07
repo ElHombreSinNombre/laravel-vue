@@ -32,6 +32,33 @@
                 <input class="formInput" type="license" name="license" maxlength="7" v-model="form.license"
                     placeholder="License...">
             </div>
+            <img v-if="form.image" :src="form.image" class="object-cover h-60 w-full rounded align-middle border-none">
+            <div :class="imageName ? 'border-dotted  border-2 border-black' : null" class="my-5 bg-white">
+                <div class="relative h-48 rounded-lg bg-gray-100 flex justify-center items-center">
+                    <div class="absolute">
+                        <div class="flex flex-col items-center"> <i class="fas fa-4x text-gray-400"
+                                :class="imageName ? 'fa-image' : ' fa-folder-open'"></i> <span
+                                class="block text-gray-400 font-normal">
+                                {{imageName ? imageName :  editing == true ?  'Update car image ' : 'New car image'}}</span>
+                        </div>
+                    </div>
+                    <input :title="form.image ? 'File has been selected' : 'Select file'" type="file"
+                        class="h-full w-full opacity-0 cursor-pointer" name="image"
+                        accept="image/jpg, image/png, image/gif, image/jpeg" @change="getImage($event)">
+                </div>
+            </div>
+            <div v-if="form.image" class="flex items-center justify-center w-full my-4">
+                <label for="deleteImage" class="flex items-center cursor-pointer">
+                    <div class="relative">
+                        <input type="checkbox" id="deleteImage" class="sr-only deleteImage" @change="removeImage()">
+                        <div class="block bg-gray-200 w-14 h-8 rounded-full"></div>
+                        <div class="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"></div>
+                    </div>
+                    <div class="ml-3 text-gray-700 font-medium">
+                        Remove image
+                    </div>
+                </label>
+            </div>
             <button @click="editing == true ? update(car.id) : store()"
                 class="w-full bg-blue-400 hover:bg-blue-600 transition duration-500 ease-in-out text-white p-3 rounded"
                 type="submit">{{editing == true ? 'Update' : 'Create'}}</button>
@@ -51,9 +78,10 @@
                     brand: '',
                     color: '#000000',
                     license: '',
-                    image: 'https://source.unsplash.com/random'
+                    image: ''
 
                 },
+                imageName: '',
                 editing: false,
                 errors: null,
             }
@@ -65,8 +93,25 @@
             }
         },
         methods: {
+            removeImage: function () {
+                this.form.image = '';
+            },
+            getImage: function (event) {
+                this.imageName = event.target.files[0].name.split(".")[0];
+                this.form.image = URL.createObjectURL(event.target.files[0]);
+            },
             store: function () {
-                axios.post("/cars", this.form)
+                const createForm = new FormData();
+                createForm.append('image', this.form.image);
+                createForm.append('model', this.form.model);
+                createForm.append('brand', this.form.brand);
+                createForm.append('color', this.form.color);
+                createForm.append('license', this.form.license);
+                axios.post("/cars", createForm, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    })
                     .then(() => {
                         this.$swal({
                             title: "Car created",
@@ -106,7 +151,18 @@
                     });
             },
             update: function (id) {
-                axios.patch("/cars/" + id, this.form)
+                const updateForm = new FormData();
+                updateForm.append('image', this.form.image);
+                updateForm.append('model', this.form.model);
+                updateForm.append('brand', this.form.brand);
+                updateForm.append('color', this.form.color);
+                updateForm.append('license', this.form.license);
+                updateForm.append('_method', 'PATCH')
+                axios.post("/cars/" + id, updateForm, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    })
                     .then(() => {
                         this.$swal({
                             title: "Car update",

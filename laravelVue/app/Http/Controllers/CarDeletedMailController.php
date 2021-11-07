@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\CarDeleted;
 
 use App\Models\Person;
+use App\Models\Car;
 
 class CarDeletedMailController extends Controller {
 
@@ -17,18 +18,20 @@ class CarDeletedMailController extends Controller {
         $this->middleware('isAdmin', ['except' => 'index']);
     }
 
-    public function email(Person $person) {
+    public function email(Car $car) {
 
-        $users = Person::join('cars', 'cars.id', '=', 'people.id_car')->where('people.id_car', $person->id_car)->get();
-        if($users){
-            foreach ($users as $user) {
-                Mail::to($user->email)->send(new CarDeleted($user->model));
-                return response()->json([
-                    'message' => 'Email has been sent to ' .$user->email
-                ]);
-            }
+        $user = Person::join('cars', 'cars.id', '=', 'people.id_car')->where('people.id_car', $car->id)->get();
+        if($user){
+            foreach ($user as $data) {
+            Mail::to($data->email)->send(new CarDeleted($data->model));
+            return response()->json([
+                'message' => 'Email has been sent to ' .$data->email
+            ]);
         }
-     
+        }else{
+            return response()->json([
+                'message' => 'Car does´t have user assigned'
+            ]);
+        }
     }
-
 }

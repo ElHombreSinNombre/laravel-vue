@@ -12,7 +12,7 @@
                         <input type="text" v-model="search"
                             class="w-2/3 shadow appearance-none border rounded py-1 px-3 text-gray-700 m-auto"
                             placeholder="Filter..." />
-                        <a title="New car" href="/cars/create"
+                        <a v-if="isAdmin==true" title="New car" href="/cars/create"
                             class="text-right cursor-pointer fas fa-plus-circle opacity-50 text-black hover:text-green-600 transition duration-500 ease-in-out hover:opacity-100"></a>
                     </div>
                 </div>
@@ -26,25 +26,25 @@
                                 <th>Car brand</th>
                                 <th>Car color</th>
                                 <th>Car license</th>
-                                <th>Action</th>
+                                <th v-if="isAdmin==true">Action</th>
                             </tr>
                         </thead>
                         <tbody is="transition-group" name="fade">
-                            <tr v-for="(car, index) in filterItems" :key="car.dni">
+                            <tr v-for="(car, index) in filterItems" :key="car.license">
                                 <td>{{car.dni || '-'}}</td>
                                 <td v-if="car.image"><img title="Show" @click="goTo(car.image)" :src="car.image" 
-                                        class="cursor-pointer opacity-50 hover:opacity-100 rounded align-middle border-none">
+                                        class="object-cover h-12 w-12 cursor-pointer opacity-50 hover:opacity-100 rounded align-middle border-none">
                                 </td>
-                                <td v-else><i class="fas fa-times"></i></td>
+                                <td v-else> - </td>
                                 <td>{{car.model || '-'}}</td>
                                 <td>{{car.brand || '-'}}</td>
                                 <td v-if="car.color" :title="car.color">
                                     <div class="rounded-lg cursor-help"
                                         :style="{ backgroundColor: car.color, padding:15}"></div>
                                 </td>
-                                <td v-else><i class="fas fa-times"></i></td>
+                                <td v-else> - </td>
                                 <td>{{car.license || '-'}}</td>
-                                <td><a title="Edit" :href="'/cars/'+ car.id +'/edit'"
+                                <td v-if="isAdmin==true"><a title="Edit" :href="'/cars/'+ car.id +'/edit'"
                                         class="hover:text-blue-600 action fas fa-edit"></a>
                                     | <i title="Delete" @click="deleteCar(car, index)"
                                         class="hover:text-red-600 action fas fa-trash"></i>
@@ -61,13 +61,21 @@
 <script>
     export default {
         name: 'CarsTable',
-        props: ['cars'],
+        props: ['cars', 'user'],
         data: function () {
             return {
                 search: '',
+                list: this.cars,
             }
         },
         computed: {
+            isAdmin() {
+                if (this.user.role=='admin') {
+                    return true
+                } else{
+                    return false
+                }
+            },
             filterItems: function () {
                 return this.filters()
             },
@@ -82,7 +90,7 @@
             deleteCar: function (car, index) {
                 this.$swal({
                     title: "Are you sure that you want delete " + car.model + "?",
-                    text: car.name + " will be removed",
+                    text: car.name!=null ? car.name +  " will be removed":null,
                     icon: "question",
                     showCancelButton: true,
                     confirmButtonColor: "#f44336",
@@ -93,7 +101,7 @@
                         axios.get("/send/" + car.id).then(() => {
                             axios.delete("/cars/" + car.id)
                                 .then(() => {
-                                    this.cars.splice(index, 1);
+                                    this.list.splice(index, 1);
                                     this.$swal({
                                         title: car.model + ' deleted',
                                         icon: 'success',
@@ -119,7 +127,7 @@
                 })
             },
             filters() {
-                return this.cars.filter(item => item.model?.match(this.search.trim()) || item.brand?.match(this
+                return this.list.filter(item => item.model?.match(this.search.trim()) || item.brand?.match(this
                     .search
                     .trim()) || item.color?.match(this.search.trim()) || item.license?.match(this.search
                     .trim()));

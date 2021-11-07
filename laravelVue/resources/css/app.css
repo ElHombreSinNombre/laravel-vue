@@ -116,3 +116,10 @@ html::-webkit-scrollbar-thumb:active {
     visibility: visible;
     transition: ease-in-out 0.75s;
 }
+
+/* Toggle delete image */
+
+.deleteImage:checked ~ .dot {
+    transform: translateX(100%);
+    background-color: #ef5350;
+  }

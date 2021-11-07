@@ -20,7 +20,7 @@ class CreateCarsTable extends Migration
             $table->text('brand', 12)->nullable();
             $table->text('color', 12)->nullable();
             $table->text('license', 7)->idNumber()->unique();
-            $table->binary('image');
+            $table->binary('image')->nullable();
         });
     }
 

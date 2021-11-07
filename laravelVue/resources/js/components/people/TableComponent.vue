@@ -12,7 +12,7 @@
                         <input type="text" v-model="search"
                             class="w-2/3 shadow appearance-none border rounded py-1 px-3 text-gray-700 m-auto"
                             placeholder="Filter..." />
-                        <a title="New person" href="/people/create"
+                        <a v-if="isAdmin==true" title="New person" href="/people/create"
                             class="text-right cursor-pointer fas fa-plus-circle opacity-50 text-black hover:text-green-600 transition duration-500 ease-in-out hover:opacity-100"></a>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                                 <th>Age</th>
                                 <th>DNI</th>
                                 <th>Email</th>
-                                <th>Action</th>
+                                <th v-if="isAdmin==true">Action</th>
                             </tr>
 
                         </thead>
@@ -38,7 +38,7 @@
                                 <td>{{person.age || '-'}}</td>
                                 <td>{{person.dni || '-'}}</td>
                                 <td>{{person.email || '-'}}</td>
-                                <td><a title="Edit" :href="'/people/'+ person.id +'/edit'"
+                                <td v-if="isAdmin==true"><a title="Edit" :href="'/people/'+ person.id +'/edit'"
                                         class="hover:text-blue-600 action fas fa-edit"></a>
                                     | <i title="Delete" @click="deletePerson(person, index)"
                                         class="hover:text-red-600 action fas fa-trash"></i>
@@ -56,13 +56,21 @@
 <script>
     export default {
         name: 'PeopleTable',
-        props: ['people'],
+        props: ['people', 'user'],
         data: function () {
             return {
                 search: '',
+                list: this.people,
             }
         },
         computed: {
+            isAdmin() {
+                if (this.user.role=='admin') {
+                    return true
+                } else{
+                    return false
+                }
+            },
             filterItems: function () {
                 return this.filters()
             },
@@ -80,7 +88,7 @@
                     if (result.value == true) {
                         axios.delete("/people/" + person.id)
                             .then(() => {
-                                this.people.splice(index, 1)
+                                this.list.splice(index, 1)
                                 this.$swal({
                                     title: person.name+' deleted',
                                     icon: 'success',
@@ -102,7 +110,7 @@
                 })
             },
             filters() {
-                return this.people.filter(item => item.name?.match(this.search.trim()) || item.lastname?.match(this.search
+                return this.list.filter(item => item.name?.match(this.search.trim()) || item.lastname?.match(this.search
                         .trim()) || item.age == this.search.trim() || item.DNI == this.search.trim() || item.email?.match(this.search.trim()));
             },
         }

@@ -26,7 +26,7 @@ class CarRequest extends FormRequest
     public function rules()
     {
         return [
-            'model' => 'max:50',
+            'model' => 'max:50|required',
             'brand' => 'max:12',
             'color' => 'max:7',
             'license' => 'required|max:7',
@@ -37,6 +37,7 @@ class CarRequest extends FormRequest
     {
         return [
             'model.max' => 'The model cannot be more than 50 characters',
+            'model.required' => 'The model is required',
             'brand.max' => 'The brand cannot be more than 12 characterss',
             'color.max' => 'The color cannot be more than 7 characterss',
             'license.required' => 'The license is required',

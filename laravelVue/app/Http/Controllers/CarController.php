@@ -26,7 +26,7 @@ class CarController extends Controller
      */
     public function index(Request $request)
     {
-        $cars = Car::join('people', 'cars.id', '=', 'people.id_car')->select('cars.*', 'people.name','people.dni')->get();
+        $cars = Car::leftJoin('people', 'cars.id', '=', 'people.id_car')->select('cars.*', 'people.name','people.dni')->get();
         if ($request->ajax()){
             return response()->json($cars);
         }
@@ -92,7 +92,6 @@ class CarController extends Controller
             if ($request->ajax()){
                 return response()->json('Car updated');
             }
-            $cars = Car::join('people', 'cars.id', '=', 'people.id_car')->select('cars.*', 'people.name','people.dni')->get();
         } catch (QueryException $e) {
             if(str_contains($e->getMessage(),'Integrity constraint violation')==true){
                 return response()->json(['message' => 'Duplicate unique values'], 500);

@@ -42,7 +42,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('people', PersonController::class)->except('show');
     
-    Route::get('/send/{person}', [CarDeletedMailController::class, 'email'])->name('email');
+    Route::get('/send/{car}', [CarDeletedMailController::class, 'email'])->name('email');
     
     Route::get('/seed', [SeedController::class, 'seed'])->name('seed');
 

@@ -2107,6 +2107,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'CarsForm',
   props: ['car'],
@@ -2117,8 +2144,9 @@ __webpack_require__.r(__webpack_exports__);
         brand: '',
         color: '#000000',
         license: '',
-        image: 'https://source.unsplash.com/random'
+        image: ''
       },
+      imageName: '',
       editing: false,
       errors: null
     };
@@ -2130,10 +2158,27 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    removeImage: function removeImage() {
+      this.form.image = '';
+    },
+    getImage: function getImage(event) {
+      this.imageName = event.target.files[0].name.split(".")[0];
+      this.form.image = URL.createObjectURL(event.target.files[0]);
+    },
     store: function store() {
       var _this = this;
 
-      axios.post("/cars", this.form).then(function () {
+      var createForm = new FormData();
+      createForm.append('image', this.form.image);
+      createForm.append('model', this.form.model);
+      createForm.append('brand', this.form.brand);
+      createForm.append('color', this.form.color);
+      createForm.append('license', this.form.license);
+      axios.post("/cars", createForm, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function () {
         _this.$swal({
           title: "Car created",
           icon: 'success',
@@ -2176,7 +2221,18 @@ __webpack_require__.r(__webpack_exports__);
     update: function update(id) {
       var _this2 = this;
 
-      axios.patch("/cars/" + id, this.form).then(function () {
+      var updateForm = new FormData();
+      updateForm.append('image', this.form.image);
+      updateForm.append('model', this.form.model);
+      updateForm.append('brand', this.form.brand);
+      updateForm.append('color', this.form.color);
+      updateForm.append('license', this.form.license);
+      updateForm.append('_method', 'PATCH');
+      axios.post("/cars/" + id, updateForm, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function () {
         _this2.$swal({
           title: "Car update",
           icon: 'success',
@@ -2294,13 +2350,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'CarsTable',
-  props: ['cars'],
+  props: ['cars', 'user'],
   data: function data() {
     return {
-      search: ''
+      search: '',
+      list: this.cars
     };
   },
   computed: {
+    isAdmin: function isAdmin() {
+      if (this.user.role == 'admin') {
+        return true;
+      } else {
+        return false;
+      }
+    },
     filterItems: function filterItems() {
       return this.filters();
     }
@@ -2314,7 +2378,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.$swal({
         title: "Are you sure that you want delete " + car.model + "?",
-        text: car.name + " will be removed",
+        text: car.name != null ? car.name + " will be removed" : null,
         icon: "question",
         showCancelButton: true,
         confirmButtonColor: "#f44336",
@@ -2324,7 +2388,7 @@ __webpack_require__.r(__webpack_exports__);
         if (result.value == true) {
           axios.get("/send/" + car.id).then(function () {
             axios["delete"]("/cars/" + car.id).then(function () {
-              _this.cars.splice(index, 1);
+              _this.list.splice(index, 1);
 
               _this.$swal({
                 title: car.model + ' deleted',
@@ -2351,7 +2415,7 @@ __webpack_require__.r(__webpack_exports__);
     filters: function filters() {
       var _this2 = this;
 
-      return this.cars.filter(function (item) {
+      return this.list.filter(function (item) {
         var _item$model, _item$brand, _item$color, _item$license;
 
         return ((_item$model = item.model) === null || _item$model === void 0 ? void 0 : _item$model.match(_this2.search.trim())) || ((_item$brand = item.brand) === null || _item$brand === void 0 ? void 0 : _item$brand.match(_this2.search.trim())) || ((_item$color = item.color) === null || _item$color === void 0 ? void 0 : _item$color.match(_this2.search.trim())) || ((_item$license = item.license) === null || _item$license === void 0 ? void 0 : _item$license.match(_this2.search.trim()));
@@ -2373,6 +2437,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
 //
 //
 //
@@ -2612,13 +2679,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'PeopleTable',
-  props: ['people'],
+  props: ['people', 'user'],
   data: function data() {
     return {
-      search: ''
+      search: '',
+      list: this.people
     };
   },
   computed: {
+    isAdmin: function isAdmin() {
+      if (this.user.role == 'admin') {
+        return true;
+      } else {
+        return false;
+      }
+    },
     filterItems: function filterItems() {
       return this.filters();
     }
@@ -2637,7 +2712,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.value == true) {
           axios["delete"]("/people/" + person.id).then(function () {
-            _this.people.splice(index, 1);
+            _this.list.splice(index, 1);
 
             _this.$swal({
               title: person.name + ' deleted',
@@ -2661,7 +2736,7 @@ __webpack_require__.r(__webpack_exports__);
     filters: function filters() {
       var _this2 = this;
 
-      return this.people.filter(function (item) {
+      return this.list.filter(function (item) {
         var _item$name, _item$lastname, _item$email;
 
         return ((_item$name = item.name) === null || _item$name === void 0 ? void 0 : _item$name.match(_this2.search.trim())) || ((_item$lastname = item.lastname) === null || _item$lastname === void 0 ? void 0 : _item$lastname.match(_this2.search.trim())) || item.age == _this2.search.trim() || item.DNI == _this2.search.trim() || ((_item$email = item.email) === null || _item$email === void 0 ? void 0 : _item$email.match(_this2.search.trim()));
@@ -20694,6 +20769,125 @@ var render = function () {
           }),
         ]),
         _vm._v(" "),
+        _vm.form.image
+          ? _c("img", {
+              staticClass:
+                "object-cover h-60 w-full rounded align-middle border-none",
+              attrs: { src: _vm.form.image },
+            })
+          : _vm._e(),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "my-5 bg-white",
+            class: _vm.imageName
+              ? "border-dotted  border-2 border-black"
+              : null,
+          },
+          [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "relative h-48 rounded-lg bg-gray-100 flex justify-center items-center",
+              },
+              [
+                _c("div", { staticClass: "absolute" }, [
+                  _c("div", { staticClass: "flex flex-col items-center" }, [
+                    _c("i", {
+                      staticClass: "fas fa-4x text-gray-400",
+                      class: _vm.imageName ? "fa-image" : " fa-folder-open",
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      { staticClass: "block text-gray-400 font-normal" },
+                      [
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(
+                              _vm.imageName
+                                ? _vm.imageName
+                                : _vm.editing == true
+                                ? "Update car image "
+                                : "New car image"
+                            )
+                        ),
+                      ]
+                    ),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  staticClass: "h-full w-full opacity-0 cursor-pointer",
+                  attrs: {
+                    title: _vm.form.image
+                      ? "File has been selected"
+                      : "Select file",
+                    type: "file",
+                    name: "image",
+                    accept: "image/jpg, image/png, image/gif, image/jpeg",
+                  },
+                  on: {
+                    change: function ($event) {
+                      return _vm.getImage($event)
+                    },
+                  },
+                }),
+              ]
+            ),
+          ]
+        ),
+        _vm._v(" "),
+        _vm.form.image
+          ? _c(
+              "div",
+              { staticClass: "flex items-center justify-center w-full my-4" },
+              [
+                _c(
+                  "label",
+                  {
+                    staticClass: "flex items-center cursor-pointer",
+                    attrs: { for: "deleteImage" },
+                  },
+                  [
+                    _c("div", { staticClass: "relative" }, [
+                      _c("input", {
+                        staticClass: "sr-only deleteImage",
+                        attrs: { type: "checkbox", id: "deleteImage" },
+                        on: {
+                          change: function ($event) {
+                            return _vm.removeImage()
+                          },
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c("div", {
+                        staticClass: "block bg-gray-200 w-14 h-8 rounded-full",
+                      }),
+                      _vm._v(" "),
+                      _c("div", {
+                        staticClass:
+                          "dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition",
+                      }),
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "ml-3 text-gray-700 font-medium" },
+                      [
+                        _vm._v(
+                          "\n                    Remove image\n                "
+                        ),
+                      ]
+                    ),
+                  ]
+                ),
+              ]
+            )
+          : _vm._e(),
+        _vm._v(" "),
         _c(
           "button",
           {
@@ -20771,11 +20965,13 @@ var render = function () {
                 },
               }),
               _vm._v(" "),
-              _c("a", {
-                staticClass:
-                  "text-right cursor-pointer fas fa-plus-circle opacity-50 text-black hover:text-green-600 transition duration-500 ease-in-out hover:opacity-100",
-                attrs: { title: "New car", href: "/cars/create" },
-              }),
+              _vm.isAdmin == true
+                ? _c("a", {
+                    staticClass:
+                      "text-right cursor-pointer fas fa-plus-circle opacity-50 text-black hover:text-green-600 transition duration-500 ease-in-out hover:opacity-100",
+                    attrs: { title: "New car", href: "/cars/create" },
+                  })
+                : _vm._e(),
             ]),
           ]),
           _vm._v(" "),
@@ -20786,20 +20982,38 @@ var render = function () {
                 staticClass: "items-center w-full border-collapse  bg-gray-100",
               },
               [
-                _vm._m(1),
+                _c("thead", [
+                  _c("tr", [
+                    _c("th", [_vm._v("DNI")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Car image")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Car model")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Car brand")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Car color")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Car license")]),
+                    _vm._v(" "),
+                    _vm.isAdmin == true
+                      ? _c("th", [_vm._v("Action")])
+                      : _vm._e(),
+                  ]),
+                ]),
                 _vm._v(" "),
                 _c(
                   "transition-group",
                   { tag: "tbody", attrs: { name: "fade" } },
                   _vm._l(_vm.filterItems, function (car, index) {
-                    return _c("tr", { key: car.dni }, [
+                    return _c("tr", { key: car.license }, [
                       _c("td", [_vm._v(_vm._s(car.dni || "-"))]),
                       _vm._v(" "),
                       car.image
                         ? _c("td", [
                             _c("img", {
                               staticClass:
-                                "cursor-pointer opacity-50 hover:opacity-100 rounded align-middle border-none",
+                                "object-cover h-12 w-12 cursor-pointer opacity-50 hover:opacity-100 rounded align-middle border-none",
                               attrs: { title: "Show", src: car.image },
                               on: {
                                 click: function ($event) {
@@ -20808,7 +21022,7 @@ var render = function () {
                               },
                             }),
                           ])
-                        : _c("td", [_c("i", { staticClass: "fas fa-times" })]),
+                        : _c("td", [_vm._v(" - ")]),
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(car.model || "-"))]),
                       _vm._v(" "),
@@ -20824,29 +21038,33 @@ var render = function () {
                               },
                             }),
                           ])
-                        : _c("td", [_c("i", { staticClass: "fas fa-times" })]),
+                        : _c("td", [_vm._v(" - ")]),
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(car.license || "-"))]),
                       _vm._v(" "),
-                      _c("td", [
-                        _c("a", {
-                          staticClass: "hover:text-blue-600 action fas fa-edit",
-                          attrs: {
-                            title: "Edit",
-                            href: "/cars/" + car.id + "/edit",
-                          },
-                        }),
-                        _vm._v("\n                                | "),
-                        _c("i", {
-                          staticClass: "hover:text-red-600 action fas fa-trash",
-                          attrs: { title: "Delete" },
-                          on: {
-                            click: function ($event) {
-                              return _vm.deleteCar(car, index)
-                            },
-                          },
-                        }),
-                      ]),
+                      _vm.isAdmin == true
+                        ? _c("td", [
+                            _c("a", {
+                              staticClass:
+                                "hover:text-blue-600 action fas fa-edit",
+                              attrs: {
+                                title: "Edit",
+                                href: "/cars/" + car.id + "/edit",
+                              },
+                            }),
+                            _vm._v("\n                                | "),
+                            _c("i", {
+                              staticClass:
+                                "hover:text-red-600 action fas fa-trash",
+                              attrs: { title: "Delete" },
+                              on: {
+                                click: function ($event) {
+                                  return _vm.deleteCar(car, index)
+                                },
+                              },
+                            }),
+                          ])
+                        : _vm._e(),
                     ])
                   }),
                   0
@@ -20874,28 +21092,6 @@ var staticRenderFns = [
         ]),
       ]
     )
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("DNI")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Car image")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Car model")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Car brand")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Car color")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Car license")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Action")]),
-      ]),
-    ])
   },
 ]
 render._withStripped = true
@@ -21165,6 +21361,21 @@ var render = function () {
           1
         ),
         _vm._v(" "),
+        !_vm.options.length
+          ? _c(
+              "p",
+              {
+                staticClass:
+                  "bg-blue-500 text-white py-2 px-5 pr-0 rounded font-bold mb-4 shadow-l",
+              },
+              [
+                _c("a", { attrs: { href: "/cars/create" } }, [
+                  _vm._v("No free cars for select. Need to create new one. "),
+                ]),
+              ]
+            )
+          : _vm._e(),
+        _vm._v(" "),
         _c(
           "button",
           {
@@ -21248,11 +21459,13 @@ var render = function () {
                 },
               }),
               _vm._v(" "),
-              _c("a", {
-                staticClass:
-                  "text-right cursor-pointer fas fa-plus-circle opacity-50 text-black hover:text-green-600 transition duration-500 ease-in-out hover:opacity-100",
-                attrs: { title: "New person", href: "/people/create" },
-              }),
+              _vm.isAdmin == true
+                ? _c("a", {
+                    staticClass:
+                      "text-right cursor-pointer fas fa-plus-circle opacity-50 text-black hover:text-green-600 transition duration-500 ease-in-out hover:opacity-100",
+                    attrs: { title: "New person", href: "/people/create" },
+                  })
+                : _vm._e(),
             ]),
           ]),
           _vm._v(" "),
@@ -21263,7 +21476,25 @@ var render = function () {
                 staticClass: "items-center w-full border-collapse  bg-gray-100",
               },
               [
-                _vm._m(1),
+                _c("thead", [
+                  _c("tr", [
+                    _c("th", [_vm._v("Car license")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Name")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Lastname")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Age")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("DNI")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Email")]),
+                    _vm._v(" "),
+                    _vm.isAdmin == true
+                      ? _c("th", [_vm._v("Action")])
+                      : _vm._e(),
+                  ]),
+                ]),
                 _vm._v(" "),
                 _c(
                   "transition-group",
@@ -21282,25 +21513,29 @@ var render = function () {
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(person.email || "-"))]),
                       _vm._v(" "),
-                      _c("td", [
-                        _c("a", {
-                          staticClass: "hover:text-blue-600 action fas fa-edit",
-                          attrs: {
-                            title: "Edit",
-                            href: "/people/" + person.id + "/edit",
-                          },
-                        }),
-                        _vm._v("\n                                | "),
-                        _c("i", {
-                          staticClass: "hover:text-red-600 action fas fa-trash",
-                          attrs: { title: "Delete" },
-                          on: {
-                            click: function ($event) {
-                              return _vm.deletePerson(person, index)
-                            },
-                          },
-                        }),
-                      ]),
+                      _vm.isAdmin == true
+                        ? _c("td", [
+                            _c("a", {
+                              staticClass:
+                                "hover:text-blue-600 action fas fa-edit",
+                              attrs: {
+                                title: "Edit",
+                                href: "/people/" + person.id + "/edit",
+                              },
+                            }),
+                            _vm._v("\n                                | "),
+                            _c("i", {
+                              staticClass:
+                                "hover:text-red-600 action fas fa-trash",
+                              attrs: { title: "Delete" },
+                              on: {
+                                click: function ($event) {
+                                  return _vm.deletePerson(person, index)
+                                },
+                              },
+                            }),
+                          ])
+                        : _vm._e(),
                     ])
                   }),
                   0
@@ -21328,28 +21563,6 @@ var staticRenderFns = [
         ]),
       ]
     )
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("Car license")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Name")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Lastname")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Age")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("DNI")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Email")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Action")]),
-      ]),
-    ])
   },
 ]
 render._withStripped = true
