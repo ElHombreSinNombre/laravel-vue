@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="center">
+<div class="center h-screen">
     <div class="w-full max-w-md">
         <div
             class="bg-white shadow-lg rounded px-12 pt-6 pb-8 mb-12 hover:shadow-2xl transition duration-500 ease-in-out">

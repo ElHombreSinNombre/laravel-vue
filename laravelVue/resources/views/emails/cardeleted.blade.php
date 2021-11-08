@@ -1,8 +1,8 @@
 @component('mail::message')
 
-{{$model}} has been removed.
+The car with model <b>{{$model}}</b> has been removed from {{ config('app.name') }}
 
+<img src="{{$image}}" style="width: 25em; height: 25em;border-radius: 0.25em">
 
-Thanks,<br>
-{{ config('app.name') }}
+<br>Thanks<br>
 @endcomponent

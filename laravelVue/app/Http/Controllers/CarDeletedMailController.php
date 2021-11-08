@@ -20,10 +20,10 @@ class CarDeletedMailController extends Controller {
 
     public function email(Car $car) {
 
-        $user = Person::join('cars', 'cars.id', '=', 'people.id_car')->where('people.id_car', $car->id)->get();
+        $user = Person::join('cars', 'cars.id', '=', 'people.id_car')->where('people.id_car','=', $car->id)->get();
         if($user){
             foreach ($user as $data) {
-            Mail::to($data->email)->send(new CarDeleted($data->model));
+            Mail::to($data->email)->send(new CarDeleted($data->model, $data->image));
             return response()->json([
                 'message' => 'Email has been sent to ' .$data->email
             ]);

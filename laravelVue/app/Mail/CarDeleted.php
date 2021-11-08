@@ -15,9 +15,10 @@ class CarDeleted extends Mailable
      *
      * @return void
      */
-    public function __construct($model)
+    public function __construct($model, $image)
     {
         $this->model = $model;
+        $this->image = $image;
     }
 
     /**
@@ -27,6 +28,6 @@ class CarDeleted extends Mailable
      */
     public function build()
     {
-        return $this->from('laravelvue@example.com')->markdown('emails.cardeleted')->with(['model' => $this->model]);
+        return $this->from('laravelvue@example.com')->markdown('emails.cardeleted')->with(['model' => $this->model,'image'=> $this->image]);
     }
 }
