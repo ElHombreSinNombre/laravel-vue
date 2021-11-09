@@ -41,9 +41,10 @@ class PersonRequest extends FormRequest
             'name.name.max' => 'Your name cannot be more than 12 characters',
             'lastname.max' => 'Your lastname cannot be more than 12 characters',
             'age.age.max' => 'Your age cannot be more than 2 characters',
-            'dni.dni.max' => 'Your DNI cannot be more than 9 characters',
             'dni.dni.required' => 'Your DNI is required',
+            'dni.dni.max' => 'Your DNI cannot be more than 9 characters',
             'email.required' => 'Your email is required',
+            'email.max' => 'Your email cannot be more than 24 characters',
             'id_car.required' => 'Person must to have a car',
         ];
     }
