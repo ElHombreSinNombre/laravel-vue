@@ -43,7 +43,7 @@ After all we can edit *etc/host* file to use a domain name.
 
       npm run dev | npm run prod 
 
-    We can use this command to compile all changes  in *real time*
+    We can use this command to compile all changes in *real time* for development.
 
       npm run watch
 
@@ -73,10 +73,10 @@ After all we can edit *etc/host* file to use a domain name.
     - Check in *postman* folder *environments.json*. There are some environments values. Change *url_base* or *url_domain* value if it necessary. There are the *laravelVue* IP and domain (if we configure it in etc/host).
     - Launch this command
 
-            npm install newman
-            npm install newman-reporter-htmlextra
-            cd postman
-            newman run collection.json -e environments.json -r cli,htmlextra
+           npm install newman
+           npm install newman-reporter-htmlextra
+           cd postman
+           newman run collection.json -e environments.json -r cli htmlextra
 
 ## Other considerations
 
