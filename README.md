@@ -6,7 +6,7 @@ We use **[Laradock](https://laradock.io/)** to get a configured Laravel docker.
 
 In *laradock* folder we must to rename *env.example* file to *.env* and edit to set your database connections and *DOCKER_HOST_IP* variable. 
 
-Open Docker Desktop, in CMD go to *laradock* folder and launch this command
+Open Docker Desktop, with CMD go to *laradock* folder and launch this command
 
     docker-compose up -d nginx mysql phpmyadmin
 
@@ -21,7 +21,7 @@ Default connection variables for this project.
     DB_USERNAME=root
     DB_PASSWORD=root
 
-Go to *laravelvue* folder and launch this commands
+Go to *laravelvue* folder with CMD and launch this commands
 
     composer install
     npm install
@@ -54,12 +54,12 @@ After all we can edit *etc/host* file to use a domain name.
         - [Laraveles Spanish](https://github.com/Laraveles/spanish)
         - [Pelmered Fake Car](https://github.com/pelmered/fake-car)
         - [Barryvdh Debugbar](https://github.com/barryvdh/laravel-debugbar)
-    - Check if *laravelvue* database is created. Else create it. **PHPMyAdmin** is installed in http://localhost:8081
+    - Check if *laravelvue* database is created. Else create it. **PHPMyAdmin** docker is in http://localhost:8081
     - Launch
 
           php artisan migrate:fresh --seed  
-
-        If return error when launch migrations change *localhost* for *mysql* in .env file.
+      
+        If return a error when launch migrations change *mysql* to *localhost* in *laravelvue* .env file. The laradock hosts fails with migration. Then return file to original state.
 
     - Default credentials for PHPMyAdmin 
 
@@ -70,10 +70,13 @@ After all we can edit *etc/host* file to use a domain name.
 ### Other Tools
 
 - [Postman](https://www.postman.com/).
+    - Check in *postman* folder *environments.json*. There are some environments values. Change *url_base* or *url_domain* value if it necessary. There are the *laravelVue* IP and domain (if we configure it in etc/host).
     - Launch this command
 
-          run collection.json -e environment.json -r cli,htmlextra
-
+            npm install newman
+            npm install newman-reporter-htmlextra
+            cd postman
+            newman run collection.json -e environments.json -r cli,htmlextra
 
 ## Other considerations
 
