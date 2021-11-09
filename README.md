@@ -4,13 +4,35 @@ Install **[Node](https://nodejs.org/es/)**, **[Composer](https://getcomposer.org
 
 We use **[Laradock](https://laradock.io/)** to get a configured Laravel docker.
 
-In *laradock* folder we must to rename *env.example* file to *.env* and edit to set your database connections and *DOCKER_HOST_IP* variable. 
+Launch in CMD
 
-Open Docker Desktop, with CMD go to *laradock* folder and launch this command
+    cd laravel-vue
+    git clone https://github.com/Laradock/laradock.git
+
+In *laradock* folder we must to copy *env.example*  and name as *.env*. In this file we must to set database connections, *APP_CODE_PATH_HOST* and *DOCKER_HOST_IP* variable. 
+
+> DOCKER_HOST_IP=127.0.0.1
+
+> APP_CODE_PATH_HOST=../laravelVue
+
+    MYSQL_VERSION=latest
+    MYSQL_DATABASE=laravelvue
+    MYSQL_USER=default
+    MYSQL_PASSWORD=secret
+    MYSQL_PORT=3306
+    MYSQL_ROOT_PASSWORD=root
+    MYSQL_ENTRYPOINT_INITDB=./mysql/docker-entrypoint-initdb.d
+
+Also, in *laradock/mysql/entrypoint.init.d* we can copy *createdb.sql.example* file and name as *createdb.sql*. Inside this file we can put
+
+    CREATE DATABASE IF NOT EXISTS `laravelvue` COLLATE 'utf8_general_ci' ;
+    GRANT ALL ON `laravelvue`.* TO 'default'@'%' ;
+
+Open **Docker Desktop**, with CMD go to *laradock* folder and launch this command
 
     docker-compose up -d nginx mysql phpmyadmin
 
-In *laravelvue* folder we must to rename *env.example* file to *.env* and edit to set your database and email connections.
+In *laravelvue* folder we must to copy *env.example* and name as *.env* In this file we must to set your database and email connections.
 
 Default connection variables for this project.
 
@@ -20,6 +42,8 @@ Default connection variables for this project.
     DB_DATABASE=laravelvue
     DB_USERNAME=root
     DB_PASSWORD=root
+
+Don´t forget to set **MailTrap** credentials in .env file.
 
 Go to *laravelvue* folder with CMD and launch this commands
 
@@ -59,7 +83,7 @@ After all we can edit *etc/host* file to use a domain name.
 
           php artisan migrate:fresh --seed  
       
-        If return a error when launch migrations change *mysql* to *localhost* in *laravelvue* .env file. The laradock hosts fails with migration. Then return file to original state.
+        If return a error when launch migrations change *mysql* to *localhost* in *laravelvue* .env file. With laradock some scripts must be to launch in workspace container, if we prefer we can use this little trick to launch it from outside of this docker. Then return file to original state.
 
     - Default credentials for PHPMyAdmin 
 
@@ -77,6 +101,8 @@ After all we can edit *etc/host* file to use a domain name.
            npm install newman-reporter-htmlextra
            cd postman
            newman run collection.json -e environments.json -r cli htmlextra
+
+         If return a error when launch last command change *mysql* to *localhost* in *laravelvue* .env file. With Laradock in some cases we can't access to dockers resources, if we prefer we can use this little trick. Then return file to original state.
 
 ## Other considerations
 
