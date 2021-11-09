@@ -39,10 +39,13 @@ class PersonController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $cars_id= Person::pluck('id_car')->all();
         $cars = Car::whereNotIn('id', $cars_id)->select('model','id')->get();
+        if ($request->ajax()){
+            return response()->json($cars);
+        }
         return view('people.form')->withCars($cars);
     }
 
@@ -80,7 +83,7 @@ class PersonController extends Controller
         $cars = Car::whereNotIn('id', $cars_id)->select('model','id')->get();
         $result = $cars->merge(collect([$car]));
         if ($request->ajax()){
-            return response()->json($findPerson);
+            return response()->json($result);
         }
         return view('people.form')->withPerson($findPerson)->withCars($result);
     }

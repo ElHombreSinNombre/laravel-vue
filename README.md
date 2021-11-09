@@ -1,47 +1,78 @@
 ## Guide
 
-Install **[Node](https://nodejs.org/es/)**, **[Composer](https://getcomposer.org/)** and **[Docker Compose](https://docs.docker.com/compose/install/).**
+Install **[Node](https://nodejs.org/es/)**, **[Composer](https://getcomposer.org/)** and **[Docker Desktop](https://docker.com/products/docker-desktop/).**
 
-In *laravelvue* folder rename *env.example* file to *.env* and edit this file to set your database and email connections.
+We use **[Laradock](https://laradock.io/)** to get a configured Laravel docker.
 
-Launch this command
+In *laradock* folder we must to rename *env.example* file to *.env* and edit to set your database connections and *DOCKER_HOST_IP* variable. 
 
+Open Docker Desktop, in CMD go to *laradock* folder and launch this command
+
+    docker-compose up -d nginx mysql phpmyadmin
+
+In *laravelvue* folder we must to rename *env.example* file to *.env* and edit to set your database and email connections.
+
+Default connection variables for this project.
+
+    DB_CONNECTION=mysql
+    DB_HOST=mysql
+    DB_PORT=3306
+    DB_DATABASE=laravelvue
+    DB_USERNAME=root
+    DB_PASSWORD=root
+
+Go to *laravelvue* folder and launch this commands
+
+    composer install
+    npm install
     php artisan key:generate
 
-docker-compose up -d nginx mysql phpmyadmin
+After all we can edit *etc/host* file to use a domain name.
+
+![Host](resources/host.jpg)
 
 ### Frontend
 - [Vue (JS)](https://vuejs.org/).
-    - Added this packages
+    - Added packages
         - [SweetAlert2 for Vue](https://www.npmjs.com/package/vue-sweetalert2).
         - [Vue Select](https://vue-select.org/).
 - [Tailwind (CSS)](https://tailwindcss.com/). 
 - [Font Awesome](https://www.npmjs.com/package/@fortawesome/fontawesome-free).
 
-    To compile CSS (with [PostCSS](https://postcss.org/)) and JS launch this command 
+    To compile CSS (with [PostCSS](https://postcss.org/)) and JS for environments launch this command 
 
       npm run dev | npm run prod 
 
+    We can use this command to compile all changes  in *real time*
+
+      npm run watch
+
 ### Backend
 - [Laravel (PHP)](https://laravel.com/).
-    - Added this packages
+    - Added packages
         - [Laravel Collective HTML](https://laravelcollective.com/docs/6.x/html)
         - [Laraveles Spanish](https://github.com/Laraveles/spanish)
         - [Pelmered Fake Car](https://github.com/pelmered/fake-car)
         - [Barryvdh Debugbar](https://github.com/barryvdh/laravel-debugbar)
-    - Create *laravelvue* database.
-    - Check database connection in *.env* file.
+    - Check if *laravelvue* database is created. Else create it. **PHPMyAdmin** is installed in http://localhost:8081
     - Launch
 
-            php artisan migrate
-            php artisan db:seed
+          php artisan migrate:fresh --seed  
+
+        If return error when launch migrations change *localhost* for *mysql* in .env file.
+
+    - Default credentials for PHPMyAdmin 
+
+          Server: mysql 
+          User: root
+          Password: root
 
 ### Other Tools
 
 - [Postman](https://www.postman.com/).
     - Launch this command
 
-          newman run COLLECTION -r -e ENVIRONMENT htmlextra
+          run collection.json -e environment.json -r cli,htmlextra
 
 
 ## Other considerations
@@ -50,7 +81,7 @@ docker-compose up -d nginx mysql phpmyadmin
 
 - A email system (with **[MailTrap](https://mailtrap.io/)**) send email when car is deleted from datatable. Email is sent to all user related to this car.
 
-  A user can drive any car, a car could driven by many user, **dni <-> license** relationship.
+  A user can drive one car, a car could driven by one user.
 
   ![email](resources/email.jpg)
 
