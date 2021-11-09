@@ -2,19 +2,33 @@
 
 Install **[Node](https://nodejs.org/es/)**, **[Composer](https://getcomposer.org/)** and **[Docker Compose](https://docs.docker.com/compose/install/).**
 
+In *laravelvue* folder rename *env.example* file to *.env* and edit this file to set your database and email connections.
+
+Launch this command
+
+    php artisan key:generate
+
+docker-compose up -d nginx mysql phpmyadmin
+
 ### Frontend
 - [Vue (JS)](https://vuejs.org/).
-    - [SweetAlert2 for Vue](https://www.npmjs.com/package/vue-sweetalert2).
-    - [Vue Select](https://vue-select.org/).
+    - Added this packages
+        - [SweetAlert2 for Vue](https://www.npmjs.com/package/vue-sweetalert2).
+        - [Vue Select](https://vue-select.org/).
 - [Tailwind (CSS)](https://tailwindcss.com/). 
-- [FontAwesome](https://www.npmjs.com/package/@fortawesome/fontawesome-free).
+- [Font Awesome](https://www.npmjs.com/package/@fortawesome/fontawesome-free).
 
-    To compile css (with [PostCSS](https://postcss.org/)) and js launch this command 
+    To compile CSS (with [PostCSS](https://postcss.org/)) and JS launch this command 
 
       npm run dev | npm run prod 
 
 ### Backend
 - [Laravel (PHP)](https://laravel.com/).
+    - Added this packages
+        - [Laravel Collective HTML](https://laravelcollective.com/docs/6.x/html)
+        - [Laraveles Spanish](https://github.com/Laraveles/spanish)
+        - [Pelmered Fake Car](https://github.com/pelmered/fake-car)
+        - [Barryvdh Debugbar](https://github.com/barryvdh/laravel-debugbar)
     - Create *laravelvue* database.
     - Check database connection in *.env* file.
     - Launch
@@ -23,21 +37,9 @@ Install **[Node](https://nodejs.org/es/)**, **[Composer](https://getcomposer.org
             php artisan db:seed
 
 ### Other Tools
-           
-- [Docker](https://www.docker.com/).
-
-    -  Launch this command
-
-           cd docker
-           docker-compose up -h
 
 - [Postman](https://www.postman.com/).
     - Launch this command
-
-          docker ps
-          docker exec -it "XXX" bash
-
-    - Inside the *docker* launch
 
           newman run COLLECTION -r -e ENVIRONMENT htmlextra
 

@@ -31,5 +31,15 @@
     "Before proceeding, please check your email for a verification link.": "Before proceeding, please check your email for a verification link.",
     "If you did not receive the email": "If you did not receive the emai",
     "click here to request another": "click here to request anothe",
-    "All rights reserved.":  "All rights reserved."
+    "All rights reserved.":  "All rights reserved.",
+    "Cars":"Cars",
+    "People":"People",
+    "Refresh-database":"Refresh database",
+    "Home":"Home",
+    "Choose":"Choose",
+    "person-form":"Person form",
+    "car-form":"Car form",
+    "car-list":"Car list",
+    "person-list":"Person list"
+
 }

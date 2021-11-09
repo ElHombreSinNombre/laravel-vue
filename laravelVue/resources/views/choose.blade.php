@@ -1,5 +1,5 @@
 @extends('layouts.base')
-@section('title') | Choose @endsection
+@section('title') | {{ __('Choose') }} @endsection
 
 <section class="grid md:grid-cols-2 gap-4 place-items-center h-screen w-screen">
     <a href="{{ route('cars.index')}}"
@@ -7,7 +7,7 @@
         <div class="mb-8">
             <i class="fas fa-car fa-5x text-white"></i> </div>
         <div class="text-center">
-            <p class="text-xl text-white font-bold mb-2">Cars</p>
+            <p class="text-xl text-white font-bold mb-2">{{ __('Cars') }}</p>
         </div>
     </a>
     <a href="{{ route('people.index')}}"
@@ -15,7 +15,7 @@
         <div class="mb-8">
             <i class="fas fa-user-friends fa-5x text-white"></i> </div>
         <div class="text-center">
-            <p class="text-xl text-white font-bold mb-2">People</p>
+            <p class="text-xl text-white font-bold mb-2">{{ __('People') }}</p>
         </div>
     </a>
 </section>

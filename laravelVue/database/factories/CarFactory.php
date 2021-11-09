@@ -26,7 +26,7 @@ class CarFactory extends Factory
             'model' => $car['model'],
             'brand' => $car['brand'],
             'color' => $this->faker->hexColor(),
-            'license' => $this->faker->vehicleRegistration(),
+            'license' => $this->faker->vehicleRegistration,
             'image' => 'https://source.unsplash.com/random?car='.trim($car['brand']).'&'.trim($car['model']).'/800x600'
         ];
     }

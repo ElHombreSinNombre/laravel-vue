@@ -26,7 +26,7 @@ class PersonFactory extends Factory
             'lastname' => $this->faker->lastName(12),
             'age' => $this->faker->numberBetween(18, 99),
             'email' => $this->faker->unique()->safeEmail(),
-            'dni' => $this->faker->unique()->dni(9),
+            'dni' => $this->faker->unique()->dni,
             'id_car' => $this->faker->unique()->randomElement($cars)
         ];
     }

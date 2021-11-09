@@ -19,8 +19,8 @@ class CreatePeopleTable extends Migration
             $table->text('name', 50)->nullable();
             $table->text('lastname', 12)->nullable();
             $table->integer('age')->nullable();
-            $table->text('dni', 7)->idNumber()->unique();
-            $table->text('email', 24)->unique();
+            $table->string('dni')->idNumber()->unique();
+            $table->string('email')->unique();
             $table->unsignedBigInteger('id_car');
             $table->foreign('id_car')->references('id')->on('cars')->unique()->onDelete('cascade');
         });
