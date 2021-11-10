@@ -9,15 +9,15 @@ Launch in CMD
     cd laravel-vue
     git clone https://github.com/Laradock/laradock.git
 
-In *laradock* folder we must to copy-paste *env.example*  and new file name as *.env*. In this file we must to set database connections, *APP_CODE_PATH_HOST* and *DOCKER_HOST_IP* variable. 
+In *laradock* folder we must to copy-paste *env.example* and rename new file as *.env*. In this file we must to set database connections, *APP_CODE_PATH_HOST* and *DOCKER_HOST_IP* variable. 
 
 > DOCKER_HOST_IP=127.0.0.1
 
-When we finish all configuration we can access to **Laravel** with this IP (or *localhost*).
+When we finish all configurations we can access to **Laravel** with this IP (or *localhost*).
 
 > APP_CODE_PATH_HOST=../laravelVue
 
-Docker get this path project.
+Docker get project from this path.
 
 Search *MYSQL_VERSION* in *.env* file and set all variables like like this.
 
@@ -29,17 +29,17 @@ Search *MYSQL_VERSION* in *.env* file and set all variables like like this.
     MYSQL_ROOT_PASSWORD=root
     MYSQL_ENTRYPOINT_INITDB=./mysql/docker-entrypoint-initdb.d
 
-Also, in *laradock/mysql/entrypoint.init.d* we can copy-paste *createdb.sql.example* file and name as *createdb.sql*. Inside this file we can put
+Also, in *laradock/mysql/entrypoint.init.d* we can copy-paste *createdb.sql.example* file and rename new file as *createdb.sql*. Inside this file we can put
 
     CREATE DATABASE IF NOT EXISTS `laravelvue` COLLATE 'utf8_general_ci' ;
     GRANT ALL ON `laravelvue`.* TO 'default'@'%' ;
 
-Open **Docker Desktop**, with CMD launch this commands
+Open **Docker Desktop**, then with CMD launch this commands
 
     cd laradock
     docker-compose up -d nginx mysql phpmyadmin
 
-In *laravelVue* folder we must to copy-paste *env.example* and name as *.env* In this file we must to set your database and email connections.
+In *laravelVue* folder we must to copy-paste *env.example* and rename new file as *.env* In this file we must to set your database and email connections.
 
 Default connection in *.env* file for this project.
 
@@ -52,7 +52,7 @@ Default connection in *.env* file for this project.
 
 Don´t forget to set **MailTrap** credentials.
 
-With CMD and launch this commands
+With CMD launch this commands
 
     cd laravelVue
     composer install
@@ -95,7 +95,7 @@ After all we can edit *etc/host* file to use a domain name.
 
           php artisan migrate:fresh --seed  
       
-        If return a error when launch migrations change *mysql* to *localhost* in *laravelVue* .env file. With laradock some scripts must be to launch in workspace container, if we prefer we can use this little trick to launch it from outside of docker. Then return file to original state.
+        If return a error when launch migrations change *mysql* to *localhost* in *laravelVue .env* file. With Laradock some scripts must be to launch in workspace container, if we prefer we can use this little trick to launch it from outside of docker. Then return file to original state.
 
     - Default credentials if we need to enter in **PHPMyadmin** 
 
@@ -120,7 +120,7 @@ After all we can edit *etc/host* file to use a domain name.
 
 ### Email
 
-- A email system (with **[MailTrap](https://mailtrap.io/)**) send email when car is deleted from datatable. Email is sent to all user related to this car.
+- A email system (with **[MailTrap](https://mailtrap.io/)**) send email when car is deleted from datatable. Email is sent to a user related to this car.
 
   A user can drive one car, a car could driven by one user.
 
