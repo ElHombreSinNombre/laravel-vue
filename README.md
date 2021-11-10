@@ -34,6 +34,8 @@ Also, in *laradock/mysql/entrypoint.init.d* we can copy-paste *createdb.sql.exam
     CREATE DATABASE IF NOT EXISTS `laravelvue` COLLATE 'utf8_general_ci' ;
     GRANT ALL ON `laravelvue`.* TO 'default'@'%' ;
 
+If you prefer you get *.env* and *createdb.sql* configuration files from *laradock-config* repository folder.
+
 Open **Docker Desktop**, then with CMD launch this commands
 
     cd laradock
