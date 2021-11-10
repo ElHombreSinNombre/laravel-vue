@@ -19,6 +19,10 @@ When we finish all configurations we can access to **Laravel** with this IP (or 
 
 Docker get project from this path.
 
+> PHP_VERSION=8.0
+
+Set PHP version for the project.
+
 Search *MYSQL_VERSION* in *.env* file and set all variables like like this.
 
     MYSQL_VERSION=latest

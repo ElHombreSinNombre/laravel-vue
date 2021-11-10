@@ -2134,6 +2134,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'CarsForm',
   props: ['car'],
@@ -2160,6 +2161,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     removeImage: function removeImage() {
       this.form.image = '';
+      this.imageName = '';
     },
     getImage: function getImage(event) {
       this.imageName = event.target.files[0].name.split(".")[0];
@@ -2536,6 +2538,8 @@ __webpack_require__.r(__webpack_exports__);
             toast.addEventListener('mouseenter', _this.$swal.stopTimer);
             toast.addEventListener('mouseleave', _this.$swal.resumeTimer);
           }
+        }).then(function () {
+          window.location.href = "/people";
         });
       })["catch"](function (e) {
         console.log(e);
@@ -2554,8 +2558,6 @@ __webpack_require__.r(__webpack_exports__);
                 toast.addEventListener('mouseenter', _this.$swal.stopTimer);
                 toast.addEventListener('mouseleave', _this.$swal.resumeTimer);
               }
-            }).then(function () {
-              window.location.href = "/people";
             });
           }
         }
@@ -2579,6 +2581,8 @@ __webpack_require__.r(__webpack_exports__);
             toast.addEventListener('mouseenter', _this2.$swal.stopTimer);
             toast.addEventListener('mouseleave', _this2.$swal.resumeTimer);
           }
+        }).then(function () {
+          window.location.href = "/people";
         });
       })["catch"](function (e) {
         console.log(e);
@@ -2597,8 +2601,6 @@ __webpack_require__.r(__webpack_exports__);
                 toast.addEventListener('mouseenter', Swal.stopTimer);
                 toast.addEventListener('mouseleave', Swal.resumeTimer);
               }
-            }).then(function () {
-              window.location.href = "/people";
             });
           }
         }
@@ -20781,7 +20783,7 @@ var render = function () {
           "div",
           {
             staticClass: "my-5 bg-white",
-            class: _vm.imageName
+            class: _vm.form.image
               ? "border-dotted  border-2 border-black"
               : null,
           },
@@ -20797,7 +20799,7 @@ var render = function () {
                   _c("div", { staticClass: "flex flex-col items-center" }, [
                     _c("i", {
                       staticClass: "fas fa-4x text-gray-400",
-                      class: _vm.imageName ? "fa-image" : " fa-folder-open",
+                      class: _vm.form.image ? "fa-image" : " fa-folder-open",
                     }),
                     _vm._v(" "),
                     _c(
@@ -20805,11 +20807,9 @@ var render = function () {
                       { staticClass: "block text-gray-400 font-normal" },
                       [
                         _vm._v(
-                          "\n                            " +
+                          "\n                            AA\n                            " +
                             _vm._s(
-                              _vm.imageName
-                                ? _vm.imageName
-                                : _vm.editing == true
+                              _vm.form.image
                                 ? "Update car image "
                                 : "New car image"
                             )

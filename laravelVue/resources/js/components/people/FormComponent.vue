@@ -96,6 +96,8 @@
                                 toast.addEventListener('mouseenter', this.$swal.stopTimer)
                                 toast.addEventListener('mouseleave', this.$swal.resumeTimer)
                             }
+                        }).then(() => {
+                            window.location.href = "/people";
                         })
                     }).catch((e) => {
                         console.log(e);
@@ -113,8 +115,6 @@
                                         toast.addEventListener('mouseenter', this.$swal.stopTimer)
                                         toast.addEventListener('mouseleave', this.$swal.resumeTimer)
                                     }
-                                }).then(() => {
-                                    window.location.href = "/people";
                                 })
                             }
                         }
@@ -136,6 +136,8 @@
                                 toast.addEventListener('mouseenter', this.$swal.stopTimer)
                                 toast.addEventListener('mouseleave', this.$swal.resumeTimer)
                             }
+                        }).then(() => {
+                            window.location.href = "/people";
                         })
                     }).catch((e) => {
                         console.log(e);
@@ -153,8 +155,6 @@
                                         toast.addEventListener('mouseenter', Swal.stopTimer)
                                         toast.addEventListener('mouseleave', Swal.resumeTimer)
                                     }
-                                }).then(() => {
-                                    window.location.href = "/people";
                                 })
                             }
                         }

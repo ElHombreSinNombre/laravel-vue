@@ -33,13 +33,13 @@
                     placeholder="License...">
             </div>
             <img v-if="form.image" :src="form.image" class="object-cover h-60 w-full rounded align-middle border-none">
-            <div :class="imageName ? 'border-dotted  border-2 border-black' : null" class="my-5 bg-white">
+            <div :class="form.image ? 'border-dotted  border-2 border-black' : null" class="my-5 bg-white">
                 <div class="relative h-48 rounded-lg bg-gray-100 flex justify-center items-center">
                     <div class="absolute">
                         <div class="flex flex-col items-center"> <i class="fas fa-4x text-gray-400"
-                                :class="imageName ? 'fa-image' : ' fa-folder-open'"></i> <span
+                                :class="form.image ? 'fa-image' : ' fa-folder-open'"></i> <span
                                 class="block text-gray-400 font-normal">
-                                {{imageName ? imageName :  editing == true ?  'Update car image ' : 'New car image'}}</span>
+                                {{form.image  ?  'Update car image ' : 'New car image'}}</span>
                         </div>
                     </div>
                     <input :title="form.image ? 'File has been selected' : 'Select file'" type="file"
@@ -95,6 +95,7 @@
         methods: {
             removeImage: function () {
                 this.form.image = '';
+                this.imageName = '';
             },
             getImage: function (event) {
                 this.imageName = event.target.files[0].name.split(".")[0];
