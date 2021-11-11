@@ -30,6 +30,7 @@ class CarRequest extends FormRequest
             'brand' => 'max:12',
             'color' => 'max:7',
             'license' => 'required|max:7',
+            'image' => 'mimes:jpg,png,gif,jpeg'
         ];
     }
 
@@ -42,6 +43,7 @@ class CarRequest extends FormRequest
             'color.max' => 'The color cannot be more than 7 characterss',
             'license.required' => 'The license is required',
             'license.max' => 'The license cannot be more than 7 characters',
+            'image.mimes' => 'Insert image only',
         ];
     }
 }
