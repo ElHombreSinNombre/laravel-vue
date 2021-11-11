@@ -96,14 +96,12 @@
                 this.form.image = '';
             },
             getImage: function (event) {
-                this.form.image = event.target.files[0];
                 this.createBase64Image(event.target.files[0]);
             },
-            createBase64Image(file) {
-                let self = this;
+           createBase64Image(file) {
                 const reader = new FileReader();
-                reader.onload = (e) => {
-                    self.form.image = e.target.result;
+                reader.onloadend  = (e) => {
+                    this.form.image = e.target.result;
                 };
                 reader.readAsDataURL(file);
             },

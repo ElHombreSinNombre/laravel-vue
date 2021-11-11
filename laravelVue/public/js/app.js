@@ -2161,68 +2161,25 @@ __webpack_require__.r(__webpack_exports__);
       this.form.image = '';
     },
     getImage: function getImage(event) {
-      this.form.image = event.target.files[0];
       this.createBase64Image(event.target.files[0]);
     },
     createBase64Image: function createBase64Image(file) {
-      var self = this;
+      var _this = this;
+
       var reader = new FileReader();
 
-      reader.onload = function (e) {
-        self.form.image = e.target.result;
+      reader.onloadend = function (e) {
+        _this.form.image = e.target.result;
       };
 
       reader.readAsDataURL(file);
     },
     store: function store() {
-      var _this = this;
-
-      axios.post("/cars", this.form).then(function () {
-        _this.$swal({
-          title: "Car created",
-          icon: 'success',
-          toast: true,
-          showConfirmButton: false,
-          position: 'top-end',
-          timerProgressBar: true,
-          timer: 5000,
-          didOpen: function didOpen(toast) {
-            toast.addEventListener('mouseenter', _this.$swal.stopTimer);
-            toast.addEventListener('mouseleave', _this.$swal.resumeTimer);
-          }
-        }).then(function () {
-          window.location.href = "/cars";
-        });
-      })["catch"](function (e) {
-        console.log(e);
-
-        if (e.response.status == 500) {
-          if (e.response.data.message == "Duplicate unique values") {
-            _this.$swal({
-              title: "License already exist",
-              icon: 'error',
-              toast: true,
-              showConfirmButton: false,
-              position: 'top-end',
-              timerProgressBar: true,
-              timer: 5000,
-              didOpen: function didOpen(toast) {
-                toast.addEventListener('mouseenter', _this.$swal.stopTimer);
-                toast.addEventListener('mouseleave', _this.$swal.resumeTimer);
-              }
-            });
-          }
-        }
-
-        _this.errors = e.response.data.errors;
-      });
-    },
-    update: function update(id) {
       var _this2 = this;
 
-      axios.patch("/cars/" + id, this.form).then(function () {
+      axios.post("/cars", this.form).then(function () {
         _this2.$swal({
-          title: "Car update",
+          title: "Car created",
           icon: 'success',
           toast: true,
           showConfirmButton: false,
@@ -2258,6 +2215,49 @@ __webpack_require__.r(__webpack_exports__);
         }
 
         _this2.errors = e.response.data.errors;
+      });
+    },
+    update: function update(id) {
+      var _this3 = this;
+
+      axios.patch("/cars/" + id, this.form).then(function () {
+        _this3.$swal({
+          title: "Car update",
+          icon: 'success',
+          toast: true,
+          showConfirmButton: false,
+          position: 'top-end',
+          timerProgressBar: true,
+          timer: 5000,
+          didOpen: function didOpen(toast) {
+            toast.addEventListener('mouseenter', _this3.$swal.stopTimer);
+            toast.addEventListener('mouseleave', _this3.$swal.resumeTimer);
+          }
+        }).then(function () {
+          window.location.href = "/cars";
+        });
+      })["catch"](function (e) {
+        console.log(e);
+
+        if (e.response.status == 500) {
+          if (e.response.data.message == "Duplicate unique values") {
+            _this3.$swal({
+              title: "License already exist",
+              icon: 'error',
+              toast: true,
+              showConfirmButton: false,
+              position: 'top-end',
+              timerProgressBar: true,
+              timer: 5000,
+              didOpen: function didOpen(toast) {
+                toast.addEventListener('mouseenter', _this3.$swal.stopTimer);
+                toast.addEventListener('mouseleave', _this3.$swal.resumeTimer);
+              }
+            });
+          }
+        }
+
+        _this3.errors = e.response.data.errors;
       });
     }
   }
