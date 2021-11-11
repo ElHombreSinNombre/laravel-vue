@@ -81,7 +81,6 @@
                     image: ''
 
                 },
-                imageName: '',
                 editing: false,
                 errors: null,
             }
@@ -95,24 +94,21 @@
         methods: {
             removeImage: function () {
                 this.form.image = '';
-                this.imageName = '';
             },
             getImage: function (event) {
-                this.imageName = event.target.files[0].name.split(".")[0];
-                this.form.image = URL.createObjectURL(event.target.files[0]);
+                this.form.image = event.target.files[0];
+                this.createBase64Image(event.target.files[0]);
+            },
+            createBase64Image(file) {
+                let self = this;
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    self.form.image = e.target.result;
+                };
+                reader.readAsDataURL(file);
             },
             store: function () {
-                const createForm = new FormData();
-                createForm.append('image', this.form.image);
-                createForm.append('model', this.form.model);
-                createForm.append('brand', this.form.brand);
-                createForm.append('color', this.form.color);
-                createForm.append('license', this.form.license);
-                axios.post("/cars", createForm, {
-                        headers: {
-                            'Content-Type': 'multipart/form-data'
-                        }
-                    })
+                axios.post("/cars", this.form)
                     .then(() => {
                         this.$swal({
                             title: "Car created",
@@ -152,18 +148,7 @@
                     });
             },
             update: function (id) {
-                const updateForm = new FormData();
-                updateForm.append('image', this.form.image);
-                updateForm.append('model', this.form.model);
-                updateForm.append('brand', this.form.brand);
-                updateForm.append('color', this.form.color);
-                updateForm.append('license', this.form.license);
-                updateForm.append('_method', 'PATCH')
-                axios.post("/cars/" + id, updateForm, {
-                        headers: {
-                            'Content-Type': 'multipart/form-data'
-                        }
-                    })
+                axios.patch("/cars/" + id, this.form)
                     .then(() => {
                         this.$swal({
                             title: "Car update",
