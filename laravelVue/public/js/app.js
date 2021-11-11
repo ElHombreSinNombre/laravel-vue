@@ -2134,7 +2134,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'CarsForm',
   props: ['car'],
@@ -2147,7 +2146,6 @@ __webpack_require__.r(__webpack_exports__);
         license: '',
         image: ''
       },
-      imageName: '',
       editing: false,
       errors: null
     };
@@ -2161,26 +2159,25 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     removeImage: function removeImage() {
       this.form.image = '';
-      this.imageName = '';
     },
     getImage: function getImage(event) {
-      this.imageName = event.target.files[0].name.split(".")[0];
-      this.form.image = URL.createObjectURL(event.target.files[0]);
+      this.form.image = event.target.files[0];
+      this.createBase64Image(event.target.files[0]);
+    },
+    createBase64Image: function createBase64Image(file) {
+      var self = this;
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        self.form.image = e.target.result;
+      };
+
+      reader.readAsDataURL(file);
     },
     store: function store() {
       var _this = this;
 
-      var createForm = new FormData();
-      createForm.append('image', this.form.image);
-      createForm.append('model', this.form.model);
-      createForm.append('brand', this.form.brand);
-      createForm.append('color', this.form.color);
-      createForm.append('license', this.form.license);
-      axios.post("/cars", createForm, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      }).then(function () {
+      axios.post("/cars", this.form).then(function () {
         _this.$swal({
           title: "Car created",
           icon: 'success',
@@ -2223,18 +2220,7 @@ __webpack_require__.r(__webpack_exports__);
     update: function update(id) {
       var _this2 = this;
 
-      var updateForm = new FormData();
-      updateForm.append('image', this.form.image);
-      updateForm.append('model', this.form.model);
-      updateForm.append('brand', this.form.brand);
-      updateForm.append('color', this.form.color);
-      updateForm.append('license', this.form.license);
-      updateForm.append('_method', 'PATCH');
-      axios.post("/cars/" + id, updateForm, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      }).then(function () {
+      axios.patch("/cars/" + id, this.form).then(function () {
         _this2.$swal({
           title: "Car update",
           icon: 'success',
@@ -20807,7 +20793,7 @@ var render = function () {
                       { staticClass: "block text-gray-400 font-normal" },
                       [
                         _vm._v(
-                          "\n                            AA\n                            " +
+                          "\n                            " +
                             _vm._s(
                               _vm.form.image
                                 ? "Update car image "

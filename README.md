@@ -118,9 +118,7 @@ After all we can edit *etc/host* file to use a domain name.
            npm install newman
            npm install newman-reporter-htmlextra
            cd postman
-           newman run collection.json -e environments.json -r cli htmlextra
-
-         If return a error when launch last command change *mysql* to *localhost* in *laravelVue .env* file. With Laradock in some cases we can't access to dockers resources, if we prefer we can use this little trick. Then return file to original state.
+           newman run collection.json -e environments.json -r cli,htmlextra
 
 ## Other considerations
 
