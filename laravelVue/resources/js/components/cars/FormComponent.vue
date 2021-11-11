@@ -96,7 +96,20 @@
                 this.form.image = '';
             },
             getImage: function (event) {
-                this.createBase64Image(event.target.files[0]);
+                if(event.target.files[0].size > 64000){
+                    this.form.image = '';
+                    this.$swal({
+                        title: "This is a demo web. Can't be saved if file has more than 64kbs",
+                        icon: 'error',
+                        toast: true,
+                        showConfirmButton: false,
+                        position: 'top-end',
+                        timerProgressBar: true,
+                        timer: 5000,
+                    });
+                }else{
+                    this.createBase64Image(event.target.files[0]);
+                }
             },
            createBase64Image(file) {
                 const reader = new FileReader();
