@@ -81,7 +81,6 @@
                     image: ''
 
                 },
-                imageName: '',
                 editing: false,
                 errors: null,
             }
@@ -95,10 +94,8 @@
         methods: {
             removeImage: function () {
                 this.form.image = '';
-                this.imageName = '';
             },
             getImage: function (event) {
-                this.imageName = event.target.files[0].name.split(".")[0];
                 this.form.image = URL.createObjectURL(event.target.files[0]);
             },
             store: function () {
