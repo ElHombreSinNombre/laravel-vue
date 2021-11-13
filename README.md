@@ -2,59 +2,21 @@
 
 Install **[Node](https://nodejs.org/es/)**, **[PHP](https://www.php.net/downloads)**, **[Composer](https://getcomposer.org/)** and **[Docker Desktop](https://docker.com/products/docker-desktop/).**
 
-We use **[Laradock](https://laradock.io/)** to get a configured Laravel docker.
-
-Launch in CMD
-
-    cd laravel-vue
-    git clone https://github.com/Laradock/laradock.git
-
-In *laradock* folder we must to copy-paste *env.example* and rename new file as *.env*. In this file we must to set database connections, *APP_CODE_PATH_HOST* and *DOCKER_HOST_IP* variable. 
-
-> DOCKER_HOST_IP=127.0.0.1
-
-When we finish all configurations we can access to **Laravel** with this IP (or *localhost*).
-
-> APP_CODE_PATH_HOST=../laravelVue
-
-Docker get project from this path.
-
-> PHP_VERSION=8.0
-
-Set PHP version for the project.
-
-Search *MYSQL_VERSION* in *.env* file and set all variables like like this.
-
-    MYSQL_VERSION=latest
-    MYSQL_DATABASE=laravelvue
-    MYSQL_USER=default
-    MYSQL_PASSWORD=secret
-    MYSQL_PORT=3306
-    MYSQL_ROOT_PASSWORD=root
-    MYSQL_ENTRYPOINT_INITDB=./mysql/docker-entrypoint-initdb.d
-
-Also, in *laradock/mysql/entrypoint.init.d* we can copy-paste *createdb.sql.example* file and rename new file as *createdb.sql*. Inside this file we can put
-
-    CREATE DATABASE IF NOT EXISTS `laravelvue` COLLATE 'utf8_general_ci' ;
-    GRANT ALL ON `laravelvue`.* TO 'default'@'%' ;
-
-If you prefer you get *.env* and *createdb.sql* configuration files from *laradock-config* repository folder.
-
 Open **Docker Desktop**, then with CMD launch this commands
 
-    cd laradock
-    docker-compose up -d nginx mysql phpmyadmin
+    cd docher
+    docker-compose up -d
 
-In *laravelVue* folder we must to copy-paste *env.example* and rename new file as *.env* In this file we must to set your database and email connections.
+In *laravelVue* folder we must to copy-paste *env.example* and rename new file as *.env*. In this file we must to set your database connections.
 
 Default connection in *.env* file for this project.
 
     DB_CONNECTION=mysql
-    DB_HOST=mysql
+    DB_HOST=mariadb
     DB_PORT=3306
     DB_DATABASE=laravelvue
     DB_USERNAME=root
-    DB_PASSWORD=root
+    DB_PASSWORD=secret
 
 Don´t forget to set **MailTrap** credentials.
 
@@ -68,6 +30,8 @@ With CMD launch this commands
 After all we can edit *etc/host* file to use a domain name.
 
 ![Host](resources/host.jpg)
+
+We can access to the web in localhost (127.0.0.1) or in laravelvue.com.
 
 ### Frontend
 - [Vue (JS)](https://vuejs.org/).
@@ -96,23 +60,22 @@ After all we can edit *etc/host* file to use a domain name.
         - [Laraveles Spanish](https://github.com/Laraveles/spanish)
         - [Pelmered Fake Car](https://github.com/pelmered/fake-car)
         - [Barryvdh Debugbar](https://github.com/barryvdh/laravel-debugbar)
-    - Check if *laravelvue* database is created. Else create it. **PHPMyAdmin** docker is in http://localhost:8081
+    - Check if *laravelvue* database is created. Else create it. **PHPMyAdmin** docker is in http://localhost:8080
     - Launch
 
-          php artisan migrate:fresh --seed  
-      
-        If return a error when launch migrations change *mysql* to *localhost* in *laravelVue .env* file. With Laradock some scripts must be to launch in workspace container, if we prefer we can use this little trick to launch it from outside of docker. Then return file to original state.
+        php artisan migrate:fresh --seed  
 
+    If return a error when launch migrations change *mariadb* to *localhost* in *laravelVue .env* file. Some scripts must be to launch in docker container, if we prefer we can use this little trick to launch it from outside of docker. Then return file to original state.
+ 
     - Default credentials if we need to enter in **PHPMyadmin** 
 
-          Server: mysql 
           User: root
-          Password: root
+          Password: secret
 
 ### Other Tools
 
 - [Postman](https://www.postman.com/).
-    - Check in *postman* folder *environments.json*. There are some environments values. Change *url_base* or *url_domain* value if it necessary. There are the *laravelVue* IP and domain (if we configure it in etc/host).
+    - Check it *postman* folder *environments.json*. There are some environments values. Change *url_base* (*www* docker container IP) or *url_domain* (if we configure it in *etc/host*) value if it necessary.  
     - Launch this command
 
            npm install newman
