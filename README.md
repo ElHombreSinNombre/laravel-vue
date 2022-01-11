@@ -4,7 +4,7 @@ Install **[Node](https://nodejs.org/es/)**, **[PHP](https://www.php.net/download
 
 Open **Docker Desktop**, then with CMD launch this commands
 
-    cd docher
+    cd docker
     docker-compose up -d
 
 In *laravelVue* folder we must to copy-paste *env.example* and rename new file as *.env*. In this file we must to set your database connections.
