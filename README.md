@@ -60,7 +60,7 @@ We can access to the web in localhost (127.0.0.1) or in laravelvue.com.
         - [Laraveles Spanish](https://github.com/Laraveles/spanish)
         - [Pelmered Fake Car](https://github.com/pelmered/fake-car)
         - [Barryvdh Debugbar](https://github.com/barryvdh/laravel-debugbar)
-    - Check if *laravelvue* database is created. Else create it. **PHPMyAdmin** docker is in http://localhost:8080
+    - Check if *laravelvue* database is created. Else create it. **PHPMyAdmin** docker is in http://localhost:8000
     - Launch
 
         php artisan migrate:fresh --seed  
