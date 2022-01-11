@@ -63,7 +63,7 @@ We can access to the web in localhost (127.0.0.1) or in laravelvue.com.
     - Check if *laravelvue* database is created. Else create it. **PHPMyAdmin** docker is in http://localhost:8000
     - Launch
 
-        php artisan migrate:fresh --seed  
+          php artisan migrate:fresh --seed  
 
     If return a error when launch migrations change *mariadb* to *localhost* in *laravelVue .env* file. Some scripts must be to launch in docker container, if we prefer we can use this little trick to launch it from outside of docker. Then return file to original state.
  
