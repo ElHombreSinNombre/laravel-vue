@@ -2,14 +2,14 @@
 
 Install **[Node](https://nodejs.org/es/)**, **[PHP](https://www.php.net/downloads)**, **[Composer](https://getcomposer.org/)** and **[Docker Desktop](https://docker.com/products/docker-desktop/).**
 
-Open **Docker Desktop**, then with CMD launch this commands
+Open **Docker Desktop**, then with CMD launch these commands
 
     cd docker
     docker-compose up -d
 
 In *laravelVue* folder we must to copy-paste *env.example* and rename new file as *.env*. In this file we must to set your database connections.
 
-Default connection in *.env* file for this project.
+Default connection in *.env* file for these project.
 
     DB_CONNECTION=mysql
     DB_HOST=mariadb
@@ -20,7 +20,7 @@ Default connection in *.env* file for this project.
 
 Don´t forget to set **MailTrap** credentials.
 
-With CMD launch this commands
+With CMD launch these commands
 
     cd laravelVue
     composer install
@@ -76,7 +76,7 @@ We can access to the web in localhost (127.0.0.1) or in laravelvue.com.
 
 - [Postman](https://www.postman.com/).
     - Check it *postman* folder *environments.json*. There are some environments values. Change *url_base* (*www* docker container IP) or *url_domain* (if we configure it in *etc/host*) value if it necessary.  
-    - Launch this command
+    - Launch these command
 
            npm install newman
            npm install newman-reporter-htmlextra
