@@ -33,7 +33,7 @@ Then run this commands:
 Move to the _docker_ folder and run the following command in the terminal:
 
 ```bash
-    docker-compose up -d
+    docker compose up -d --build
 ```
 
 > [!NOTE]
