@@ -41,7 +41,7 @@ Move to the _docker_ folder and run the following command in the terminal:
 
 ![email](resources/email.jpg)
 
-### Credentials
+### App Credentials
 
 - Admin user
 
